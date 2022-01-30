@@ -1,7 +1,3 @@
-//
-// Created by martin on 2021-06-15.
-//
-
 #include <iostream>
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/RenderTexture.hpp>
@@ -14,7 +10,7 @@ bool Chunk::load(sf::Texture &tileset, sf::Vector2u tileSize, const int *_tiles)
     m_vertices.resize(size * size * 4);
 
     // populate the vertex array, with one quad per tile
-    for (unsigned int i = 0; i < size; ++i)
+    for (unsigned int i = 0; i < size; ++i) {
         for (unsigned int j = 0; j < size; ++j) {
             // get the current tile number
             unsigned int tileNumber = _tiles[i + j * size];
@@ -50,26 +46,25 @@ bool Chunk::load(sf::Texture &tileset, sf::Vector2u tileSize, const int *_tiles)
 
 
         }
+    }
 
     return true;
 }
 
 void Chunk::draw(sf::RenderTarget &target, sf::RenderStates states) const {
-    // apply the transform
-    //states.transform *= getTransform();
-
     // apply the tileset texture
     states.texture = m_tileset;
 
     // draw the vertex array
-    sf::RenderTexture renderTexture;
-    renderTexture.create(size * spriteSize, size * spriteSize);
-    renderTexture.clear(sf::Color::Blue);
+    sf::RenderTexture texture;
+    texture.create(size * spriteSize, size * spriteSize);
+    texture.clear(sf::Color::Blue);
 
-    renderTexture.draw(m_vertices, states);
-    renderTexture.display();
+    texture.draw(m_vertices, states);
+    texture.display();
 
-    sf::Sprite sprite(renderTexture.getTexture());
+    sf::Sprite sprite;
+    sprite.setTexture(texture.getTexture());
     float scale = 1.0f / spriteSize;
     sprite.setScale(scale, scale);
     sprite.setPosition(getPosition());
@@ -95,8 +90,10 @@ void Chunk::setTile(unsigned int x, unsigned int y, unsigned int tile) {
                                      (float) (tv + 1) * (float) spriteSize);
     quad[3].texCoords = sf::Vector2f((float) tu * (float) spriteSize,
                                      (float) (tv + 1) * (float) spriteSize);
+
 }
 
 unsigned int Chunk::getTileType(unsigned int x, unsigned int y) {
     return this->tiles[x][y];
 }
+

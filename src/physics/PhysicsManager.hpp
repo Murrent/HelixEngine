@@ -24,7 +24,8 @@ private:
     static bool continousRectCheckY(RectangleObject &obj, sf::Vector2f dest, sf::Vector2u tileOccupation, TileMap &map);
 
 public:
-    std::vector<RectangleObject *> rectangles;
+    std::vector<RectangleObject *> players;
+    std::vector<RectangleObject *> stdRects;
     std::vector<CircleObject *> circles;
 
     //Dynamic rectangle to static rectangle response solver
@@ -35,5 +36,7 @@ public:
     void circleTilemap(CircleObject &obj, TileMap &map);
 
     void update(TileMap &map);
+
+    void addStdRect(RectangleObject *obj);
 };
 

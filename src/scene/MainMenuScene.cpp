@@ -1,7 +1,3 @@
-//
-// Created by martin on 2021-04-04.
-//
-
 #include <SFML/Window/Event.hpp>
 #include <iostream>
 #include "MainMenuScene.hpp"
@@ -9,6 +5,9 @@
 #include "../system/Input.hpp"
 
 void MainMenuScene::init() {
+    MainMenuScene mainMenuScene;
+    Scene* abc = &mainMenuScene;
+
     // create the window
     //sf::RenderWindow window(sf::VideoMode(512, 256), "Tilemap");
 

@@ -123,7 +123,7 @@ PhysicsManager::checkDownVel(sf::Vector2f topLeft, sf::Vector2f btmRight, sf::Ve
 bool PhysicsManager::continousRectCheckX(RectangleObject &obj, sf::Vector2f dest, sf::Vector2u tileOccupation,
                                          TileMap &map) {
     if (obj.getVelocity().x == 0.0f) return false;
-    sf::Vector2f pos = obj.getPosition();
+    const sf::Vector2f& pos = obj.getPosition();
     float size2 = obj.getSize().x * 2.0f;
     if (size2 == 0.0f) return false;
     unsigned int xSteps = std::ceil(std::abs(dest.x - pos.x) / size2);
@@ -161,7 +161,7 @@ bool PhysicsManager::continousRectCheckX(RectangleObject &obj, sf::Vector2f dest
 bool PhysicsManager::continousRectCheckY(RectangleObject &obj, sf::Vector2f dest, sf::Vector2u tileOccupation,
                                          TileMap &map) {
     if (obj.getVelocity().y == 0.0f) return false;
-    sf::Vector2f pos = obj.getPosition();
+    const sf::Vector2f& pos = obj.getPosition();
     float size2 = obj.getSize().y * 2.0f;
     if (size2 == 0.0f) return false;
     unsigned int ySteps = std::ceil(std::abs(dest.y - pos.y) / size2);
@@ -196,7 +196,8 @@ bool PhysicsManager::continousRectCheckY(RectangleObject &obj, sf::Vector2f dest
 }
 
 void PhysicsManager::rectTilemap(RectangleObject &obj, TileMap &map) {
-    sf::Vector2f pos = obj.getPosition(), nextPos = pos + obj.getVelocity();
+    const sf::Vector2f& pos = obj.getPosition();
+    sf::Vector2f nextPos = pos + obj.getVelocity();
     sf::Vector2u occupation = sf::Vector2u(std::ceil(obj.getSize().x * 2.0f) + 1,
                                            std::ceil(obj.getSize().y * 2.0f) + 1);
 
@@ -228,8 +229,14 @@ void PhysicsManager::circleTilemap(CircleObject &obj, TileMap &map) {
 }
 
 void PhysicsManager::update(TileMap &map) {
-    for (auto &tmp : rectangles)
+    for (auto &tmp : players)
+        rectTilemap(*tmp, map);
+    for (auto &tmp : stdRects)
         rectTilemap(*tmp, map);
     for (auto &tmp : circles)
         circleTilemap(*tmp, map);
+}
+
+void PhysicsManager::addStdRect(RectangleObject *obj) {
+    stdRects.push_back(obj);
 }

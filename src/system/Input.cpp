@@ -71,7 +71,7 @@ ScrollEvent::ScrollEvent(sf::Mouse::Wheel wheelType, bool positiveDirection) {
 Input::Input() {
     inputs.resize(INPUT_COUNT);
 //    UP
-    keyInputs.emplace_back(sf::Keyboard::W);
+    keyInputs.emplace_back(KeyEvent(sf::Keyboard::W));
     keyInputs.back().storedIndex = keyInputs.size() - 1;
     keyInputs.back().inputIndex = UP;
 //    DOWN

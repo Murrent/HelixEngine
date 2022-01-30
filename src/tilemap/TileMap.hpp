@@ -6,6 +6,7 @@
 #include <SFML/Graphics/VertexArray.hpp>
 #include <SFML/Graphics/Texture.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
+#include <unordered_map>
 #include "Chunk.hpp"
 
 class TileMap : public sf::Drawable, public sf::Transformable {

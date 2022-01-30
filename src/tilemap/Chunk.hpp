@@ -6,6 +6,7 @@
 #include <SFML/Graphics/VertexArray.hpp>
 #include <SFML/Graphics/Texture.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
+#include <SFML/Graphics/Sprite.hpp>
 
 class Chunk : public sf::Drawable, public sf::Transformable {
 public:
@@ -18,6 +19,7 @@ public:
     void setTile(unsigned int x, unsigned int y, unsigned int tile);
 
     unsigned int getTileType(unsigned int x, unsigned int y);
+
 private:
 
     void draw(sf::RenderTarget &target, sf::RenderStates states) const override;

@@ -5,29 +5,6 @@ set(CMAKE_CXX_STANDARD 17)
 set(dir ${CMAKE_CURRENT_SOURCE_DIR})
 set(src ${dir}/src)
 
-add_executable(Game ${src}/game.cpp
-        src/system/Entity.cpp
-        src/system/Entity.hpp
-        src/system/Engine.cpp
-        src/system/Engine.hpp
-        src/noise/SimplexNoise.cpp
-        src/noise/SimplexNoise.hpp
-        src/system/Input.cpp
-        src/system/Input.hpp
-        src/content/Player.cpp
-        src/content/Player.hpp src/content/items/Item.cpp src/content/items/Item.hpp)
-
-add_executable(Physics ${src}/physics.cpp
-        src/oldEngineCode/oldPhysicsManager/PhysicsManager.cpp
-        src/oldEngineCode/oldPhysicsManager/PhysicsManager.hpp
-        src/physics/PhysicsObject.cpp
-        src/physics/PhysicsObject.hpp
-        src/physics/VectorMath.cpp
-        src/physics/VectorMath.hpp)
-
-add_executable(test ${src}/test.cpp)
-
-
 add_executable(MainMenu ${src}/scene/main.cpp
         ${src}/scene/GameManager.hpp
         ${src}/scene/GameManager.cpp
@@ -56,7 +33,30 @@ add_executable(MainMenu ${src}/scene/main.cpp
         ${src}/system/Engine.cpp
         ${src}/system/Engine.hpp
         ${src}/noise/SimplexNoise.cpp
-        ${src}/noise/SimplexNoise.hpp src/content/Inventory.cpp src/content/Inventory.hpp)
+        ${src}/noise/SimplexNoise.hpp src/content/Inventory.cpp src/content/Inventory.hpp src/system/ItemManager.cpp src/system/ItemManager.hpp src/physics/ItemObject.cpp src/physics/ItemObject.hpp)
+
+add_executable(Game ${src}/game.cpp
+        src/system/Entity.cpp
+        src/system/Entity.hpp
+        src/system/Engine.cpp
+        src/system/Engine.hpp
+        src/noise/SimplexNoise.cpp
+        src/noise/SimplexNoise.hpp
+        src/system/Input.cpp
+        src/system/Input.hpp
+        src/content/Player.cpp
+        src/content/Player.hpp src/content/items/Item.cpp src/content/items/Item.hpp)
+
+add_executable(Physics ${src}/physics.cpp
+        src/oldEngineCode/oldPhysicsManager/PhysicsManager.cpp
+        src/oldEngineCode/oldPhysicsManager/PhysicsManager.hpp
+        src/physics/PhysicsObject.cpp
+        src/physics/PhysicsObject.hpp
+        src/physics/VectorMath.cpp
+        src/physics/VectorMath.hpp)
+
+add_executable(test ${src}/test.cpp)
+
 
 include_directories(headers /usr/include c:/SFML/include)
 #include_directories(box2d C:/Users/Martin/Downloads/box2d-master/include)

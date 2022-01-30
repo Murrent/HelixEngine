@@ -5,12 +5,17 @@
 
 class Inventory {
 private:
-    std::unordered_map<int, std::unordered_map<int, Item *>> items;
-    
-public:
-    bool addItem(Item &item);
+    sf::Vector2u dimensions;
+    std::vector<std::vector<Item *>> items;
 
-    bool addItemToSlot(sf::Vector2u pos, Item &item);
+public:
+    std::vector<Item *> getItems();
+
+    void setSize(unsigned int x, unsigned int y);
+
+    bool addItem(Item *item);
+
+    bool addItemToSlot(sf::Vector2u pos, Item *item);
 
     bool dropItem(sf::Vector2u pos);
 };
