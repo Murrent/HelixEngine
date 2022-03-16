@@ -25,3 +25,15 @@ unsigned char Item::getStackSize() const {
 unsigned char Item::getAmount() const {
     return this->amount;
 }
+
+void Item::update() {
+    Entity::update();
+}
+
+void Item::start() {
+    Entity::start();
+}
+
+void Item::draw() {
+    Entity::draw();
+}

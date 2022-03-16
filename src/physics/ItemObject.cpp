@@ -16,9 +16,9 @@ ItemObject::ItemObject(Item *_item, float x, float y, float velX, float velY)
 }
 
 void ItemObject::start() {
-    this->sprite = this->item->getSprite();
-    this->name = this->item->getName();
-    this->amount = this->item->getAmount();
+    //this->sprite = this->item->getSprite();
+    //this->name = this->item->getName();
+    //this->amount = this->item->getAmount();
 }
 
 void ItemObject::update() {

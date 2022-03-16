@@ -3,8 +3,9 @@
 
 #include <SFML/Graphics/Sprite.hpp>
 #include <string>
+#include "../../system/Entity.hpp"
 
-class Item {
+class Item : public Entity {
 private:
     sf::Sprite sprite;
     std::string name;
@@ -28,6 +29,12 @@ public:
     virtual void Use() = 0;
 
     virtual void Use2() = 0;
+
+    void start() override;
+
+    void update() override;
+
+    void draw() override;
 
     virtual ~Item();
 };

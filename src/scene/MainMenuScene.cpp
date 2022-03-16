@@ -6,7 +6,7 @@
 
 void MainMenuScene::init() {
     MainMenuScene mainMenuScene;
-    Scene* abc = &mainMenuScene;
+    Scene *abc = &mainMenuScene;
 
     // create the window
     //sf::RenderWindow window(sf::VideoMode(512, 256), "Tilemap");
@@ -27,8 +27,14 @@ void MainMenuScene::init() {
     for (int &i : level) {
         i = 3;
     }
+    int levelNthn[256];
+    for (int &i : levelNthn) {
+        i = 0;
+    }
     // create the tilemap from the level definition
     if (!map.setTileset("../assets/sprites/Tiles.png"))
+        return;
+    if (!map.addChunk(sf::Vector2u(4, 4), levelNthn, 0, -1))
         return;
     if (!map.addChunk(sf::Vector2u(4, 4), level, 0, 0))
         return;
@@ -42,6 +48,8 @@ void MainMenuScene::init() {
         return;
     if (!map.addChunk(sf::Vector2u(4, 4), level, 0, -2))
         return;
+    map.setTile(10, -1, 3);
+
     map.setTile(4, 0, 0);
     map.setTile(5, 0, 0);
     map.setTile(6, 0, 0);
@@ -71,7 +79,7 @@ void MainMenuScene::init() {
     player = Player(2.0f, -10.0f, 0.8f, 1.8f);
     player.setVelocity(sf::Vector2f(0.0f, 0.0f));
     player.shape.setFillColor(sf::Color(255, 255, 255, 100));
-    physicsManager.rectangles.push_back(&player);
+    physicsManager.players.push_back(&player);
 }
 
 void MainMenuScene::update() {
@@ -124,28 +132,29 @@ void MainMenuScene::update() {
         GameManager::window.setView(tmp);
     }
 
-    sf::Vector2f vel = player.getVelocity();
-    if (Input::input.getEvent(LEFT).getActive())
-        vel.x -= 0.04f;
-    if (Input::input.getEvent(RIGHT).getActive())
-        vel.x += 0.04f;
-
-    if (Input::input.getEvent(JUMP).getDown())
-        vel.y -= 0.6f;
-    else
-        vel.y += 0.02f;
-
-    vel.x *= 0.8f;
-    vel.y *= 0.99f;
-
-    player.setVelocity(vel);
+//    sf::Vector2f vel = player.getVelocity();
+//    if (Input::input.getEvent(LEFT).getActive())
+//        vel.x -= 0.04f;
+//    if (Input::input.getEvent(RIGHT).getActive())
+//        vel.x += 0.04f;
+//
+//    if (Input::input.getEvent(JUMP).getDown())
+//        vel.y -= 0.6f;
+//    else
+//        vel.y += 0.02f;
+//
+//    vel.x *= 0.8f;
+//    vel.y *= 0.99f;
+//
+//    player.setVelocity(vel);
+    player.updateInputs();
     physicsManager.update(map);
 }
 
 void MainMenuScene::draw() {
     GameManager::window.clear();
     GameManager::window.draw(map);
-    GameManager::window.draw(player.shape);
+    player.draw();
     GameManager::window.display();
 }
 

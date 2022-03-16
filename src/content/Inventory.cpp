@@ -1,4 +1,5 @@
 #include "Inventory.hpp"
+#include "../scene/GameManager.hpp"
 
 std::vector<Item *> Inventory::getItems() {
     std::vector<Item *> itemVector;
@@ -12,6 +13,8 @@ std::vector<Item *> Inventory::getItems() {
 }
 
 void Inventory::setSize(unsigned int x, unsigned int y) {
+    this->background.setSize(sf::Vector2f((float) x, (float) y));
+    this->background.setOrigin(sf::Vector2f((float) x, (float) y) * 0.5f);
     // Store all current items
     std::vector<Item *> prevItems = this->getItems();
     // resize
@@ -59,12 +62,45 @@ bool Inventory::addItemToSlot(sf::Vector2u pos, Item *item) {
     return false;
 }
 
-bool Inventory::dropItem(sf::Vector2u pos) {
+Item *Inventory::removeItem(sf::Vector2u pos) {
     if (items.size() - 1 <= pos.x && items[pos.x].size() - 1 <= pos.y && items[pos.x][pos.y] != nullptr) {
-        delete (items[pos.x][pos.y]);
+        Item *item = items[pos.x][pos.y];
         items[pos.x][pos.y] = nullptr;
-        return true;
+        return item;
     }
-    return false;
+    return nullptr;
 }
+
+void Inventory::start() {
+    Entity::start();
+    this->background.setPosition(0.0f, 0.0f);
+}
+
+void Inventory::update() {
+    Entity::update();
+}
+
+void Inventory::draw() {
+    Entity::draw();
+    sf::View oldView = GameManager::window.getView();
+    sf::View tmpView(sf::Vector2f(0, 0), (sf::Vector2f)GameManager::window.getSize());
+    float scale = tmpView.getSize().y * 0.08f;
+    this->background.setScale(scale, scale);
+    GameManager::window.setView(tmpView);
+    GameManager::window.draw(this->background);
+
+    for (int x = 0; x < this->items.size(); x++) {
+        for (int y = 0; y < this->items[x].size(); y++) {
+            sf::RectangleShape rect;
+            rect.setOrigin(this->background.getSize() * scale * 0.5f);
+            rect.setFillColor(sf::Color::Magenta);
+            rect.setSize(sf::Vector2f(0.9f, 0.9f) * scale);
+            rect.setPosition((0.05f + x) * scale, (0.05f + y) * scale);
+            GameManager::window.draw(rect);
+        }
+    }
+
+    GameManager::window.setView(oldView);
+}
+
 

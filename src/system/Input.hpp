@@ -17,6 +17,7 @@ enum InputIndex {
     NEXT,
     PREVIOUS,
     SPRINT,
+    INVENTORY,
     INPUT_COUNT
 };
 

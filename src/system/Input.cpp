@@ -103,7 +103,7 @@ Input::Input() {
     mouseInputs.back().storedIndex = mouseInputs.size() - 1;
     mouseInputs.back().inputIndex = TRIGGER3;
 //    INTERACT
-    keyInputs.emplace_back(KeyEvent(sf::Keyboard::E));
+    keyInputs.emplace_back(KeyEvent(sf::Keyboard::F));
     keyInputs.back().storedIndex = keyInputs.size() - 1;
     keyInputs.back().inputIndex = INTERACT;
 //    NEXT
@@ -118,6 +118,10 @@ Input::Input() {
     keyInputs.emplace_back(KeyEvent(sf::Keyboard::LShift));
     keyInputs.back().storedIndex = keyInputs.size() - 1;
     keyInputs.back().inputIndex = SPRINT;
+//    INVENTORY
+    keyInputs.emplace_back(KeyEvent(sf::Keyboard::E));
+    keyInputs.back().storedIndex = keyInputs.size() - 1;
+    keyInputs.back().inputIndex = INVENTORY;
 
 
     for (auto &tmp : keyInputs)
