@@ -2,6 +2,7 @@
 
 #include <SFML/Graphics.hpp>
 #include "Scene.hpp"
+#include "Textures.hpp"
 
 class GameManager {
 private:
@@ -12,6 +13,7 @@ private:
 public:
     static Scene* scene;
     static sf::RenderWindow window;
+    static Textures textures;
     static void stop();
     static void run();
 };

@@ -9,6 +9,7 @@ Player::Player(float x, float y, float width, float height) : RectangleObject(x,
     this->shape.setOrigin(width, height);
     this->inventory.setSize(10, 5);
     this->inventoryOpen = false;
+    this->inventory.start();
 }
 
 void Player::setPosition(const sf::Vector2f &_position) {
@@ -35,6 +36,9 @@ void Player::updateInputs() {
 
     if (Input::input.getEvent(INVENTORY).getDown())
         inventoryOpen = !inventoryOpen;
+
+    if (inventoryOpen)
+        inventory.update();
 }
 
 void Player::draw() {

@@ -1,30 +1,9 @@
 #include "Item.hpp"
+#include "../../scene/GameManager.hpp"
 
 Item::Item() {}
 
-Item::~Item() {
-
-}
-
-sf::Sprite Item::getSprite() {
-    return this->sprite;
-}
-
-std::string Item::getName() {
-    return this->name;
-}
-
-std::string Item::getDescription() {
-    return this->description;
-}
-
-unsigned char Item::getStackSize() const {
-    return this->stackSize;
-}
-
-unsigned char Item::getAmount() const {
-    return this->amount;
-}
+Item::~Item() = default;
 
 void Item::update() {
     Entity::update();
@@ -35,5 +14,13 @@ void Item::start() {
 }
 
 void Item::draw() {
-    Entity::draw();
+    GameManager::window.draw(this->sprite);
+}
+
+void Item::Use() {
+
+}
+
+void Item::Use2() {
+
 }

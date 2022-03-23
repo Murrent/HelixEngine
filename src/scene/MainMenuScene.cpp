@@ -3,6 +3,12 @@
 #include "MainMenuScene.hpp"
 #include "GameManager.hpp"
 #include "../system/Input.hpp"
+#include "../content/items/Item.hpp"
+#include "../content/items/Stick.hpp"
+#include "../content/items/SwordIron.hpp"
+#include "../content/items/IngotGold.hpp"
+#include "../content/items/IngotIron.hpp"
+#include "../content/items/PickaxeIron.hpp"
 
 void MainMenuScene::init() {
     MainMenuScene mainMenuScene;
@@ -80,6 +86,33 @@ void MainMenuScene::init() {
     player.setVelocity(sf::Vector2f(0.0f, 0.0f));
     player.shape.setFillColor(sf::Color(255, 255, 255, 100));
     physicsManager.players.push_back(&player);
+
+    for (int i = 0; i < 23; i++) {
+        auto *stick = new Stick();
+        if (!player.inventory.addItem(stick))
+            delete stick;
+    }
+
+    {
+        auto *stick = new SwordIron();
+        if (!player.inventory.addItem(stick))
+            delete stick;
+    }
+    {
+        auto *stick = new IngotGold();
+        if (!player.inventory.addItem(stick))
+            delete stick;
+    }
+    {
+        auto *stick = new IngotIron();
+        if (!player.inventory.addItem(stick))
+            delete stick;
+    }
+    {
+        auto *stick = new PickaxeIron();
+        if (!player.inventory.addItem(stick))
+            delete stick;
+    }
 }
 
 void MainMenuScene::update() {
@@ -110,27 +143,29 @@ void MainMenuScene::update() {
 
     //std::cout << (Input::input.getEvent(UP).getActive()) << std::endl;
 
-
-    if (Input::input.getEvent(NEXT).getActive()) {
-        sf::View tmp = GameManager::window.getView();
-        tmp.setCenter(tmp.getCenter().x, tmp.getCenter().y + 1.f);
-        GameManager::window.setView(tmp);
-    }
-    if (Input::input.getEvent(PREVIOUS).getActive()) {
-        sf::View tmp = GameManager::window.getView();
-        tmp.setCenter(tmp.getCenter().x, tmp.getCenter().y - 1.f);
-        GameManager::window.setView(tmp);
-    }
-    if (Input::input.getEvent(TRIGGER).getUp()) {
-        sf::View tmp = GameManager::window.getView();
-        tmp.setCenter(tmp.getCenter().x + 1.f, tmp.getCenter().y);
-        GameManager::window.setView(tmp);
-    }
-    if (Input::input.getEvent(TRIGGER2).getUp()) {
-        sf::View tmp = GameManager::window.getView();
-        tmp.setCenter(tmp.getCenter().x - 1.f, tmp.getCenter().y);
-        GameManager::window.setView(tmp);
-    }
+    sf::View tmp = GameManager::window.getView();
+            tmp.setCenter(player.shape.getPosition());
+            GameManager::window.setView(tmp);
+//    if (Input::input.getEvent(NEXT).getActive()) {
+//        sf::View tmp = GameManager::window.getView();
+//        tmp.setCenter(tmp.getCenter().x, tmp.getCenter().y + 1.f);
+//        GameManager::window.setView(tmp);
+//    }
+//    if (Input::input.getEvent(PREVIOUS).getActive()) {
+//        sf::View tmp = GameManager::window.getView();
+//        tmp.setCenter(tmp.getCenter().x, tmp.getCenter().y - 1.f);
+//        GameManager::window.setView(tmp);
+//    }
+//    if (Input::input.getEvent(TRIGGER).getUp()) {
+//        sf::View tmp = GameManager::window.getView();
+//        tmp.setCenter(tmp.getCenter().x + 1.f, tmp.getCenter().y);
+//        GameManager::window.setView(tmp);
+//    }
+//    if (Input::input.getEvent(TRIGGER2).getUp()) {
+//        sf::View tmp = GameManager::window.getView();
+//        tmp.setCenter(tmp.getCenter().x - 1.f, tmp.getCenter().y);
+//        GameManager::window.setView(tmp);
+//    }
 
 //    sf::Vector2f vel = player.getVelocity();
 //    if (Input::input.getEvent(LEFT).getActive())
@@ -159,5 +194,7 @@ void MainMenuScene::draw() {
 }
 
 void MainMenuScene::end() {
+    for (auto *tmp : player.inventory.getItems())
+        delete tmp;
     Scene::end();
 }

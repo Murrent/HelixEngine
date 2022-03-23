@@ -33,7 +33,27 @@ add_executable(MainMenu ${src}/scene/main.cpp
         ${src}/system/Engine.cpp
         ${src}/system/Engine.hpp
         ${src}/noise/SimplexNoise.cpp
-        ${src}/noise/SimplexNoise.hpp src/content/Inventory.cpp src/content/Inventory.hpp src/system/ItemManager.cpp src/system/ItemManager.hpp src/physics/ItemObject.cpp src/physics/ItemObject.hpp)
+        ${src}/noise/SimplexNoise.hpp
+        src/content/Inventory.cpp
+        src/content/Inventory.hpp
+        src/content/items/Item.cpp
+        src/content/items/Item.hpp
+        src/system/ItemManager.cpp
+        src/system/ItemManager.hpp
+        src/physics/ItemObject.cpp
+        src/physics/ItemObject.hpp
+        src/scene/Textures.cpp
+        src/scene/Textures.hpp
+        src/content/items/PickaxeIron.cpp
+        src/content/items/PickaxeIron.hpp
+        src/content/items/IngotGold.cpp
+        src/content/items/IngotGold.hpp
+        src/content/items/IngotIron.cpp
+        src/content/items/IngotIron.hpp
+        src/content/items/SwordIron.cpp
+        src/content/items/SwordIron.hpp
+        src/content/items/Stick.cpp
+        src/content/items/Stick.hpp)
 
 add_executable(Game ${src}/game.cpp
         src/system/Entity.cpp
@@ -45,7 +65,7 @@ add_executable(Game ${src}/game.cpp
         src/system/Input.cpp
         src/system/Input.hpp
         src/content/Player.cpp
-        src/content/Player.hpp src/content/items/Item.cpp src/content/items/Item.hpp)
+        src/content/Player.hpp src/content/items/Item.cpp src/content/items/Item.hpp src/content/items/PickaxeIron.cpp src/content/items/PickaxeIron.hpp src/content/items/IngotGold.cpp src/content/items/IngotGold.hpp src/content/items/IngotIron.cpp src/content/items/IngotIron.hpp src/content/items/Stick.cpp src/content/items/Stick.hpp src/content/items/SwordIron.cpp src/content/items/SwordIron.hpp)
 
 add_executable(Physics ${src}/physics.cpp
         src/oldEngineCode/oldPhysicsManager/PhysicsManager.cpp

@@ -7,9 +7,9 @@
 
 class Inventory : public Entity {
 private:
-    sf::Vector2u dimensions;
+    sf::Vector2u dimensions, selectedPos;
     std::vector<std::vector<Item *>> items;
-    bool active;
+    bool active, selected;
     sf::RectangleShape background;
 
 public:
