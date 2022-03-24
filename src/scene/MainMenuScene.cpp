@@ -9,6 +9,7 @@
 #include "../content/items/IngotGold.hpp"
 #include "../content/items/IngotIron.hpp"
 #include "../content/items/PickaxeIron.hpp"
+#include "../content/items/Banana.hpp"
 
 void MainMenuScene::init() {
     MainMenuScene mainMenuScene;
@@ -110,6 +111,11 @@ void MainMenuScene::init() {
     }
     {
         auto *stick = new PickaxeIron();
+        if (!player.inventory.addItem(stick))
+            delete stick;
+    }
+    {
+        auto *stick = new Banana();
         if (!player.inventory.addItem(stick))
             delete stick;
     }
