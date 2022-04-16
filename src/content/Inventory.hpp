@@ -13,7 +13,12 @@ private:
     sf::RectangleShape background;
 
 public:
+
     std::vector<Item *> getItems();
+
+    Item *getItem(unsigned int x, unsigned int y);
+
+    std::vector<Item *> getHotbarItems();
 
     void setSize(unsigned int x, unsigned int y);
 
@@ -21,7 +26,7 @@ public:
 
     bool addItemToSlot(sf::Vector2u pos, Item *item);
 
-    Item* removeItem(sf::Vector2u pos);
+    Item *removeItem(sf::Vector2u pos);
 
     void start() override;
 

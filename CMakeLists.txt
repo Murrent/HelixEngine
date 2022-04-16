@@ -53,7 +53,7 @@ add_executable(MainMenu ${src}/scene/main.cpp
         src/content/items/SwordIron.cpp
         src/content/items/SwordIron.hpp
         src/content/items/Stick.cpp
-        src/content/items/Stick.hpp src/content/items/Banana.cpp src/content/items/Banana.hpp)
+        src/content/items/Stick.hpp src/content/items/Banana.cpp src/content/items/Banana.hpp src/content/Hotbar.cpp src/content/Hotbar.hpp src/common/Camera.cpp src/common/Camera.hpp src/common/Animation.cpp src/common/Animation.hpp src/system/ECS.cpp src/system/ECS.hpp)
 
 add_executable(Game ${src}/game.cpp
         src/system/Entity.cpp
@@ -65,7 +65,7 @@ add_executable(Game ${src}/game.cpp
         src/system/Input.cpp
         src/system/Input.hpp
         src/content/Player.cpp
-        src/content/Player.hpp src/content/items/Item.cpp src/content/items/Item.hpp src/content/items/PickaxeIron.cpp src/content/items/PickaxeIron.hpp src/content/items/IngotGold.cpp src/content/items/IngotGold.hpp src/content/items/IngotIron.cpp src/content/items/IngotIron.hpp src/content/items/Stick.cpp src/content/items/Stick.hpp src/content/items/SwordIron.cpp src/content/items/SwordIron.hpp src/content/items/Banana.cpp src/content/items/Banana.hpp)
+        src/content/Player.hpp src/content/items/Item.cpp src/content/items/Item.hpp src/content/items/PickaxeIron.cpp src/content/items/PickaxeIron.hpp src/content/items/IngotGold.cpp src/content/items/IngotGold.hpp src/content/items/IngotIron.cpp src/content/items/IngotIron.hpp src/content/items/Stick.cpp src/content/items/Stick.hpp src/content/items/SwordIron.cpp src/content/items/SwordIron.hpp src/content/items/Banana.cpp src/content/items/Banana.hpp src/common/Camera.cpp src/common/Camera.hpp)
 
 add_executable(Physics ${src}/physics.cpp
         src/oldEngineCode/oldPhysicsManager/PhysicsManager.cpp

@@ -170,4 +170,20 @@ void Inventory::draw() {
     GameManager::window.setView(oldView);
 }
 
+Item *Inventory::getItem(unsigned int x, unsigned int y) {
+    if (items.size() - 1 <= y && items[y].size() - 1 <= x && items[y][x] != nullptr) {
+        return items[y][x];
+    }
+    return nullptr;
+}
+
+std::vector<Item *> Inventory::getHotbarItems() {
+    std::vector<Item *> itemVector;
+    for (auto &item : this->items[dimensions.y - 1]) {
+            if (item != nullptr)
+                itemVector.push_back(item);
+    }
+    return itemVector;
+}
+
 

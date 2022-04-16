@@ -5,12 +5,14 @@
 #include "../system/Entity.hpp"
 #include "../physics/RectangleObject.hpp"
 #include "Inventory.hpp"
+#include "Hotbar.hpp"
 
 class Player : public Entity, public RectangleObject {
 public:
     sf::RectangleShape shape;
     Inventory inventory;
-    bool inventoryOpen;
+    bool inventoryOpen{false};
+    Hotbar hotbar;
 
     Player() = default;
 

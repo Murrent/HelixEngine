@@ -1,3 +1,4 @@
+#include <iostream>
 #include "Player.hpp"
 #include "../system/Input.hpp"
 #include "../scene/GameManager.hpp"
@@ -39,10 +40,14 @@ void Player::updateInputs() {
 
     if (inventoryOpen)
         inventory.update();
+
+    hotbar.items = inventory.getHotbarItems();
+    hotbar.update();
 }
 
 void Player::draw() {
     Entity::draw();
     GameManager::window.draw(this->shape);
+    hotbar.draw();
     if (inventoryOpen) this->inventory.draw();
 }
