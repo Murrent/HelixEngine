@@ -77,6 +77,15 @@ add_executable(Physics ${src}/physics.cpp
 
 add_executable(test ${src}/test.cpp)
 
+add_executable(verletTest
+        ${src}/verletTest.cpp
+        src/physics/VerletObject.cpp
+        src/physics/VerletObject.hpp
+        src/physics/Solver.cpp
+        src/physics/Solver.hpp
+        src/physics/VectorMath.hpp
+        src/physics/VectorMath.cpp)
+
 
 include_directories(headers /usr/include c:/SFML/include)
 #include_directories(box2d C:/Users/Martin/Downloads/box2d-master/include)
@@ -89,6 +98,7 @@ if (SFML_FOUND)
     target_link_libraries(Physics ${SFML_LIBRARIES})
     target_link_libraries(test ${SFML_LIBRARIES})
     target_link_libraries(MainMenu ${SFML_LIBRARIES})
+    target_link_libraries(verletTest ${SFML_LIBRARIES})
 endif ()
 
 file(COPY assets DESTINATION ${CMAKE_BINARY_DIR})
