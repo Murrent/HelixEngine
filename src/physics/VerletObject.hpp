@@ -10,8 +10,10 @@ public:
     sf::Vector2f prevPosition;
     sf::Vector2f acceleration;
     float size{10.0f};
+    bool staticBody{false};
 
     void updatePos(float dt) {
+        if (staticBody) return;
         const sf::Vector2f velocity = (position - prevPosition);// * std::pow(0.5f, dt);
 
         prevPosition = position;

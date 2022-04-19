@@ -12,10 +12,10 @@ add_executable(MainMenu ${src}/scene/main.cpp
         ${src}/scene/Scene.cpp
         ${src}/scene/MainMenuScene.hpp
         ${src}/scene/MainMenuScene.cpp
+        ${src}/tilemap/TileMap.hpp
+        ${src}/tilemap/TileMap.cpp
         ${src}/tilemap/Chunk.hpp
         ${src}/tilemap/Chunk.cpp
-        ${src}/tilemap/Tilemap.hpp
-        ${src}/tilemap/Tilemap.cpp
         ${src}/system/Input.cpp
         ${src}/system/Input.hpp
         ${src}/physics/PhysicsManager.cpp
@@ -53,7 +53,17 @@ add_executable(MainMenu ${src}/scene/main.cpp
         src/content/items/SwordIron.cpp
         src/content/items/SwordIron.hpp
         src/content/items/Stick.cpp
-        src/content/items/Stick.hpp src/content/items/Banana.cpp src/content/items/Banana.hpp src/content/Hotbar.cpp src/content/Hotbar.hpp src/common/Camera.cpp src/common/Camera.hpp src/common/Animation.cpp src/common/Animation.hpp src/system/ECS.cpp src/system/ECS.hpp)
+        src/content/items/Stick.hpp
+        src/content/items/Banana.cpp
+        src/content/items/Banana.hpp
+        src/content/Hotbar.cpp
+        src/content/Hotbar.hpp
+        src/common/Camera.cpp
+        src/common/Camera.hpp
+        src/common/Animation.cpp
+        src/common/Animation.hpp
+        src/system/ECS.cpp
+        src/system/ECS.hpp)
 
 add_executable(Game ${src}/game.cpp
         src/system/Entity.cpp
@@ -84,7 +94,7 @@ add_executable(verletTest
         src/physics/Solver.cpp
         src/physics/Solver.hpp
         src/physics/VectorMath.hpp
-        src/physics/VectorMath.cpp)
+        src/physics/VectorMath.cpp src/physics/Link.cpp src/physics/Link.hpp)
 
 
 include_directories(headers /usr/include c:/SFML/include)
