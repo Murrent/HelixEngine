@@ -3,7 +3,6 @@
 #include "../system/Input.hpp"
 #include "../scene/GameManager.hpp"
 
-
 Player::Player(float x, float y, float width, float height) : RectangleObject(x, y, width, height) {
     this->shape.setSize(2.0f * sf::Vector2f(width, height));
     this->shape.setPosition(x, y);
