@@ -13,6 +13,7 @@ public:
     Inventory inventory;
     bool inventoryOpen{false};
     Hotbar hotbar;
+    Item* equippedItem{nullptr};
 
     Player() = default;
 

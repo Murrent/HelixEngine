@@ -76,8 +76,9 @@ Item *Inventory::removeItem(sf::Vector2u pos) {
 
 void Inventory::dropItem(sf::Vector2u invPos, sf::Vector2f worldPos) {
     Item *item = items[invPos.y][invPos.x];
+    sf::Vector2f playerPos = GameManager::player.getPosition();
     sf::Vector2f velocityOut = (worldPos - GameManager::player.getPosition()) * 0.1f;
-    GameManager::physicsManager.addItem(item, worldPos.x, worldPos.y, velocityOut.x, velocityOut.y);
+    GameManager::physicsManager.addItem(item, playerPos.x, playerPos.y, velocityOut.x, velocityOut.y);
     items[invPos.y][invPos.x] = nullptr;
 }
 
@@ -126,7 +127,7 @@ void Inventory::update() {
             }
             if (!foundSpot) {
                 sf::Vector2f worldPos = GameManager::window.mapPixelToCoords(mousePos);
-                this->dropItem(selectedPos, worldPos);
+                this->dropItem((sf::Vector2u)selectedPos, worldPos);
             }
         }
     } else {
@@ -199,10 +200,13 @@ Item *Inventory::getItem(unsigned int x, unsigned int y) {
 std::vector<Item *> Inventory::getHotbarItems() {
     std::vector<Item *> itemVector;
     for (auto &item: this->items[dimensions.y - 1]) {
-        if (item != nullptr)
-            itemVector.push_back(item);
+        itemVector.push_back(item);
     }
     return itemVector;
+}
+
+const sf::Vector2u &Inventory::getDimensions() const {
+    return dimensions;
 }
 
 

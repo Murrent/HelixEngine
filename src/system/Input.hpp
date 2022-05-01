@@ -18,6 +18,17 @@ enum InputIndex {
     PREVIOUS,
     SPRINT,
     INVENTORY,
+    DROPITEM,
+    HOTBAR1,
+    HOTBAR2,
+    HOTBAR3,
+    HOTBAR4,
+    HOTBAR5,
+    HOTBAR6,
+    HOTBAR7,
+    HOTBAR8,
+    HOTBAR9,
+    HOTBAR10,
     INPUT_COUNT
 };
 

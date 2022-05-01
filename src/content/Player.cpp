@@ -37,16 +37,31 @@ void Player::updateInputs() {
     if (Input::input.getEvent(INVENTORY).getDown())
         inventoryOpen = !inventoryOpen;
 
-    if (inventoryOpen)
-        inventory.update();
-
     hotbar.items = inventory.getHotbarItems();
     hotbar.update();
+    if (inventoryOpen)
+        inventory.update();
+    else {
+        equippedItem = hotbar.getSelectedItem();
+        if (equippedItem != nullptr) {
+            if (Input::input.getEvent(TRIGGER).getActive())
+                equippedItem->Use();
+            else if (Input::input.getEvent(TRIGGER2).getActive())
+                equippedItem->Use2();
+            else if (Input::input.getEvent(DROPITEM).getActive()) {
+                sf::Vector2i mousePos = sf::Mouse::getPosition(GameManager::window);
+                sf::Vector2f worldPos = GameManager::window.mapPixelToCoords(mousePos);
+                hotbar.dropEquippedItem(worldPos);
+            }
+        }
+    }
+
 }
 
 void Player::draw() {
     Entity::draw();
     GameManager::window.draw(this->shape);
-    hotbar.draw();
+
     if (inventoryOpen) this->inventory.draw();
+    else hotbar.draw();
 }

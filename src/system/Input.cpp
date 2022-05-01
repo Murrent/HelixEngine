@@ -123,6 +123,51 @@ Input::Input() {
     keyInputs.back().storedIndex = keyInputs.size() - 1;
     keyInputs.back().inputIndex = INVENTORY;
 
+//    DROPITEM
+    keyInputs.emplace_back(KeyEvent(sf::Keyboard::Q));
+    keyInputs.back().storedIndex = keyInputs.size() - 1;
+    keyInputs.back().inputIndex = DROPITEM;
+
+//    HOTBAR1
+    keyInputs.emplace_back(KeyEvent(sf::Keyboard::Num1));
+    keyInputs.back().storedIndex = keyInputs.size() - 1;
+    keyInputs.back().inputIndex = HOTBAR1;
+//    HOTBAR2
+    keyInputs.emplace_back(KeyEvent(sf::Keyboard::Num2));
+    keyInputs.back().storedIndex = keyInputs.size() - 1;
+    keyInputs.back().inputIndex = HOTBAR2;
+//    HOTBAR3
+    keyInputs.emplace_back(KeyEvent(sf::Keyboard::Num3));
+    keyInputs.back().storedIndex = keyInputs.size() - 1;
+    keyInputs.back().inputIndex = HOTBAR3;
+//    HOTBAR4
+    keyInputs.emplace_back(KeyEvent(sf::Keyboard::Num4));
+    keyInputs.back().storedIndex = keyInputs.size() - 1;
+    keyInputs.back().inputIndex = HOTBAR4;
+//    HOTBAR5
+    keyInputs.emplace_back(KeyEvent(sf::Keyboard::Num5));
+    keyInputs.back().storedIndex = keyInputs.size() - 1;
+    keyInputs.back().inputIndex = HOTBAR5;
+//    HOTBAR6
+    keyInputs.emplace_back(KeyEvent(sf::Keyboard::Num6));
+    keyInputs.back().storedIndex = keyInputs.size() - 1;
+    keyInputs.back().inputIndex = HOTBAR6;
+//    HOTBAR7
+    keyInputs.emplace_back(KeyEvent(sf::Keyboard::Num7));
+    keyInputs.back().storedIndex = keyInputs.size() - 1;
+    keyInputs.back().inputIndex = HOTBAR7;
+//    HOTBAR8
+    keyInputs.emplace_back(KeyEvent(sf::Keyboard::Num8));
+    keyInputs.back().storedIndex = keyInputs.size() - 1;
+    keyInputs.back().inputIndex = HOTBAR8;
+//    HOTBAR9
+    keyInputs.emplace_back(KeyEvent(sf::Keyboard::Num9));
+    keyInputs.back().storedIndex = keyInputs.size() - 1;
+    keyInputs.back().inputIndex = HOTBAR9;
+//    HOTBAR10
+    keyInputs.emplace_back(KeyEvent(sf::Keyboard::Num0));
+    keyInputs.back().storedIndex = keyInputs.size() - 1;
+    keyInputs.back().inputIndex = HOTBAR10;
 
     for (auto &tmp : keyInputs)
         inputs[tmp.inputIndex] = &tmp;

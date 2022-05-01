@@ -9,6 +9,7 @@ ItemObject::ItemObject(Item *_item)
     this->sprite.setColor(sf::Color::White);
     sf::Rect<int> rect = this->sprite.getTextureRect();
     this->setSize(sf::Vector2f(rect.width, rect.height) * 0.125f);
+    clock.restart();
 }
 
 ItemObject::ItemObject(Item *_item, float x, float y)
@@ -19,6 +20,7 @@ ItemObject::ItemObject(Item *_item, float x, float y)
     this->sprite.setColor(sf::Color::White);
     sf::Rect<int> rect = this->sprite.getTextureRect();
     this->setSize(sf::Vector2f(rect.width, rect.height) * 0.125f);
+    clock.restart();
 }
 
 ItemObject::ItemObject(Item *_item, float x, float y, float velX, float velY)
@@ -29,6 +31,7 @@ ItemObject::ItemObject(Item *_item, float x, float y, float velX, float velY)
     this->sprite.setColor(sf::Color::White);
     sf::Rect<int> rect = this->sprite.getTextureRect();
     this->setSize(sf::Vector2f(rect.width, rect.height) * 0.125f);
+    clock.restart();
 }
 
 void ItemObject::start() {
@@ -37,6 +40,10 @@ void ItemObject::start() {
 
 void ItemObject::update() {
     Entity::update();
+    sf::Vector2f vel = getVelocity();
+    vel.x *= 0.9f;
+    vel.y *= 0.9f;
+    setVelocity(vel);
 }
 
 void ItemObject::draw() {

@@ -235,19 +235,21 @@ void PhysicsManager::update() {
     for (unsigned int i = 0; i < itemRects.size(); i++) {
         auto &tmp = itemRects[i];
         tmp.setVelocity(tmp.getVelocity() + gravity);
+        tmp.update();
         rectTilemap(tmp);
-        for (auto &player: players) {
-            sf::Rect<float> playerRect(player->getPosition() - player->getSize(), player->getSize() * 2.0f),
-                    itemRect(tmp.getPosition() - tmp.getSize(), tmp.getSize() * 2.0f);
+        if (tmp.clock.getElapsedTime().asSeconds() > ItemObject::noPickupTime) {
+            for (auto &player: players) {
+                sf::Rect<float> playerRect(player->getPosition() - player->getSize(), player->getSize() * 2.0f),
+                        itemRect(tmp.getPosition() - tmp.getSize(), tmp.getSize() * 2.0f);
 
-            if (playerRect.intersects(itemRect)) {
-                if (player->inventory.addItem(tmp.item)) {
-                    itemRects.erase(itemRects.begin() + i);
-                    i--;
+                if (playerRect.intersects(itemRect)) {
+                    if (player->inventory.addItem(tmp.item)) {
+                        itemRects.erase(itemRects.begin() + i);
+                        i--;
+                    }
                 }
             }
         }
-
     }
     for (auto &tmp: circles)
         circleTilemap(*tmp);

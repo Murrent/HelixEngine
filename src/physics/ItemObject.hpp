@@ -1,6 +1,7 @@
 #pragma once
 
 
+#include <SFML/System/Clock.hpp>
 #include "RectangleObject.hpp"
 #include "../system/Entity.hpp"
 #include "../content/items/Item.hpp"
@@ -11,6 +12,8 @@ public:
     std::string name;
     unsigned char amount{0};
     Item *item{};
+    static constexpr float noPickupTime = 2.0f;
+    sf::Clock clock;
 
     explicit ItemObject(Item *_item);
 
