@@ -34,8 +34,10 @@ void Player::updateInputs() {
 
     this->setVelocity(vel);
 
-    if (Input::input.getEvent(INVENTORY).getDown())
+    if (Input::input.getEvent(INVENTORY).getDown()){
         inventoryOpen = !inventoryOpen;
+        inventory.close();
+    }
 
     hotbar.items = inventory.getHotbarItems();
     hotbar.update();

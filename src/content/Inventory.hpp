@@ -25,6 +25,8 @@ public:
 
     void setSize(unsigned int x, unsigned int y);
 
+    void close();
+
     bool addItem(Item *item);
 
     bool addItemToSlot(sf::Vector2u pos, Item *item);

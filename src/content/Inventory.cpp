@@ -209,4 +209,13 @@ const sf::Vector2u &Inventory::getDimensions() const {
     return dimensions;
 }
 
+void Inventory::close() {
+    for (auto& column : items) {
+        for (auto slot : column) {
+            if (slot != nullptr)
+                slot->sprite.setColor(sf::Color::White);
+        }
+    }
+}
+
 

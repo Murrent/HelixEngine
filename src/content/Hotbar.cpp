@@ -47,7 +47,7 @@ void Hotbar::draw() {
     sf::Vector2u windowSize = GameManager::window.getSize();
     sf::View tmpView(sf::Vector2f(0, 0), (sf::Vector2f) windowSize);
     float scale = tmpView.getSize().y * 0.08f;
-    this->background.setPosition(0.0f, (0.05f - 0.50f * scale) + windowSize.y * 0.5f);
+    this->background.setPosition(0.0f, (0.05f - 0.50f * scale) + (float) windowSize.y * 0.5f);
     this->background.setScale(scale, scale);
     GameManager::window.setView(tmpView);
     GameManager::window.draw(this->background);
@@ -72,7 +72,7 @@ void Hotbar::draw() {
             this->items[y]->sprite.setScale((1.0f / largestSize) * sf::Vector2f(0.7f, 0.7f) * scale);
             if (!selected || selected != y)
                 this->items[y]->sprite.setPosition((0.0f - (float) this->items.size() * 0.5f + 0.5f + y) * scale,
-                                                   ((0.05f - 0.50f * scale) + windowSize.y * 0.5f));
+                                                   ((0.05f - 0.50f * scale) + (float) windowSize.y * 0.5f));
             this->items[y]->draw();
         }
     }
