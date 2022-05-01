@@ -28,6 +28,10 @@ public:
 
     Item *removeItem(sf::Vector2u pos);
 
+    void dropItem(sf::Vector2u invPos, sf::Vector2f worldPos);
+
+    void clear();
+
     void start() override;
 
     void update() override;

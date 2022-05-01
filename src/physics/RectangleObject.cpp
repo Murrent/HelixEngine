@@ -13,6 +13,6 @@ RectangleObject::RectangleObject(float x, float y, float width, float height) : 
 }
 
 RectangleObject::RectangleObject(float x, float y, float width, float height, float velX, float velY) :
-        PhysicsObject(x, y, width, height, velX, velY) {
-
+        PhysicsObject(x, y, velX, velY) {
+    this->setSize(sf::Vector2f(width, height));
 }

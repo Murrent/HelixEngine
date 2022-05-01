@@ -5,6 +5,9 @@
 
 Scene* GameManager::scene = nullptr;
 sf::RenderWindow GameManager::window;
+TileMap GameManager::map;
+PhysicsManager GameManager::physicsManager;
+Player GameManager::player;
 Textures GameManager::textures;
 
 void GameManager::init() {

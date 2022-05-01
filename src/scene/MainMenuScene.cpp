@@ -1,5 +1,6 @@
 #include <SFML/Window/Event.hpp>
 #include <iostream>
+#include <memory>
 #include "MainMenuScene.hpp"
 #include "GameManager.hpp"
 #include "../system/Input.hpp"
@@ -39,84 +40,84 @@ void MainMenuScene::init() {
         i = 0;
     }
     // create the tilemap from the level definition
-    if (!map.setTileset("../assets/sprites/Tiles.png"))
+    if (!GameManager::map.setTileset("../assets/sprites/Tiles.png"))
         return;
-    if (!map.addChunk(sf::Vector2u(4, 4), levelNthn, 0, -1))
+    if (!GameManager::map.addChunk(sf::Vector2u(4, 4), levelNthn, 0, -1))
         return;
-    if (!map.addChunk(sf::Vector2u(4, 4), level, 0, 0))
+    if (!GameManager::map.addChunk(sf::Vector2u(4, 4), level, 0, 0))
         return;
-    if (!map.addChunk(sf::Vector2u(4, 4), level, 0, 1))
+    if (!GameManager::map.addChunk(sf::Vector2u(4, 4), level, 0, 1))
         return;
-    if (!map.addChunk(sf::Vector2u(4, 4), level, -1, 0))
+    if (!GameManager::map.addChunk(sf::Vector2u(4, 4), level, -1, 0))
         return;
-    if (!map.addChunk(sf::Vector2u(4, 4), level, -1, -1))
+    if (!GameManager::map.addChunk(sf::Vector2u(4, 4), level, -1, -1))
         return;
-    if (!map.addChunk(sf::Vector2u(4, 4), level, 1, -1))
+    if (!GameManager::map.addChunk(sf::Vector2u(4, 4), level, 1, -1))
         return;
-    if (!map.addChunk(sf::Vector2u(4, 4), level, 0, -2))
+    if (!GameManager::map.addChunk(sf::Vector2u(4, 4), level, 0, -2))
         return;
-    map.setTile(10, -1, 3);
+    GameManager::map.setTile(10, -1, 3);
 
-    map.setTile(4, 0, 0);
-    map.setTile(5, 0, 0);
-    map.setTile(6, 0, 0);
-    map.setTile(4, 1, 0);
-    map.setTile(5, 1, 0);
-    map.setTile(4, 2, 0);
-    map.setTile(5, 2, 0);
-    map.setTile(4, 3, 0);
-    map.setTile(5, 3, 0);
-    map.setTile(6, 3, 0);
-    map.setTile(4, 4, 0);
-    map.setTile(5, 4, 0);
-    map.setTile(6, 4, 0);
-    map.setTile(4, 5, 0);
-    map.setTile(5, 5, 0);
-    map.setTile(6, 5, 0);
-    map.setTile(4, 6, 0);
-    map.setTile(5, 6, 0);
-    map.setTile(6, 6, 0);
-    map.setTile(1, 1, 1);
-    map.setTile(0, 4, 1);
-    map.setTile(15, 0, 2);
+    GameManager::map.setTile(4, 0, 0);
+    GameManager::map.setTile(5, 0, 0);
+    GameManager::map.setTile(6, 0, 0);
+    GameManager::map.setTile(4, 1, 0);
+    GameManager::map.setTile(5, 1, 0);
+    GameManager::map.setTile(4, 2, 0);
+    GameManager::map.setTile(5, 2, 0);
+    GameManager::map.setTile(4, 3, 0);
+    GameManager::map.setTile(5, 3, 0);
+    GameManager::map.setTile(6, 3, 0);
+    GameManager::map.setTile(4, 4, 0);
+    GameManager::map.setTile(5, 4, 0);
+    GameManager::map.setTile(6, 4, 0);
+    GameManager::map.setTile(4, 5, 0);
+    GameManager::map.setTile(5, 5, 0);
+    GameManager::map.setTile(6, 5, 0);
+    GameManager::map.setTile(4, 6, 0);
+    GameManager::map.setTile(5, 6, 0);
+    GameManager::map.setTile(6, 6, 0);
+    GameManager::map.setTile(1, 1, 1);
+    GameManager::map.setTile(0, 4, 1);
+    GameManager::map.setTile(15, 0, 2);
     //map.removeChunk(sf::Vector2i(-3, 0));
 
     this->view = sf::View(sf::Vector2f(0, 0), sf::Vector2f(80, 40));
     GameManager::window.setView(this->view);
-    player = Player(2.0f, -10.0f, 0.8f, 1.8f);
-    player.setVelocity(sf::Vector2f(0.0f, 0.0f));
-    player.shape.setFillColor(sf::Color(255, 255, 255, 100));
-    physicsManager.players.push_back(&player);
+    GameManager::player = Player(2.0f, -10.0f, 0.8f, 1.8f);
+    GameManager::player.setVelocity(sf::Vector2f(0.0f, 0.0f));
+    GameManager::player.shape.setFillColor(sf::Color(255, 255, 255, 100));
+    GameManager::physicsManager.players.push_back(&GameManager::player);
 
     for (int i = 0; i < 23; i++) {
         auto *stick = new Stick();
-        if (!player.inventory.addItem(stick))
+        if (!GameManager::player.inventory.addItem(stick))
             delete stick;
     }
 
     {
         auto *stick = new SwordIron();
-        if (!player.inventory.addItem(stick))
+        if (!GameManager::player.inventory.addItem(stick))
             delete stick;
     }
     {
         auto *stick = new IngotGold();
-        if (!player.inventory.addItem(stick))
+        if (!GameManager::player.inventory.addItem(stick))
             delete stick;
     }
     {
         auto *stick = new IngotIron();
-        if (!player.inventory.addItem(stick))
+        if (!GameManager::player.inventory.addItem(stick))
             delete stick;
     }
     {
         auto *stick = new PickaxeIron();
-        if (!player.inventory.addItem(stick))
+        if (!GameManager::player.inventory.addItem(stick))
             delete stick;
     }
     {
         auto *stick = new Banana();
-        if (!player.inventory.addItem(stick))
+        if (!GameManager::player.inventory.addItem(stick))
             delete stick;
     }
 }
@@ -150,7 +151,7 @@ void MainMenuScene::update() {
     //std::cout << (Input::input.getEvent(UP).getActive()) << std::endl;
 
     sf::View tmp = GameManager::window.getView();
-            tmp.setCenter(player.shape.getPosition());
+            tmp.setCenter(GameManager::player.shape.getPosition());
             GameManager::window.setView(tmp);
 //    if (Input::input.getEvent(NEXT).getActive()) {
 //        sf::View tmp = GameManager::window.getView();
@@ -188,19 +189,19 @@ void MainMenuScene::update() {
 //    vel.y *= 0.99f;
 //
 //    player.setVelocity(vel);
-    player.updateInputs();
-    physicsManager.update(map);
+    GameManager::player.updateInputs();
+    GameManager::physicsManager.update();
 }
 
 void MainMenuScene::draw() {
     GameManager::window.clear();
-    GameManager::window.draw(map);
-    player.draw();
+    GameManager::window.draw(GameManager::map);
+    GameManager::physicsManager.draw();
+    GameManager::player.draw();
     GameManager::window.display();
 }
 
 void MainMenuScene::end() {
-    for (auto *tmp : player.inventory.getItems())
-        delete tmp;
+    GameManager::player.inventory.clear();
     Scene::end();
 }

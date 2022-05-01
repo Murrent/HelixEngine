@@ -4,8 +4,8 @@
 
 std::vector<Item *> Inventory::getItems() {
     std::vector<Item *> itemVector;
-    for (auto &column : this->items) {
-        for (auto &item : column) {
+    for (auto &column: this->items) {
+        for (auto &item: column) {
             if (item != nullptr)
                 itemVector.push_back(item);
         }
@@ -22,15 +22,15 @@ void Inventory::setSize(unsigned int x, unsigned int y) {
     std::vector<Item *> prevItems = this->getItems();
     // resize
     this->items.resize(y);
-    for (auto &column : this->items) {
+    for (auto &column: this->items) {
         column.resize(x);
     }
 
     // Store all pointers again and check if they don't exist in the new array we drop it on the ground to not get memory leak
-    for (auto &column : this->items) {
-        for (auto &item : column) {
+    for (auto &column: this->items) {
+        for (auto &item: column) {
             if (item != nullptr) {
-                for (auto &prevItem : prevItems) {
+                for (auto &prevItem: prevItems) {
                     if (item == prevItem) {
                         prevItem = nullptr;
                     }
@@ -39,15 +39,15 @@ void Inventory::setSize(unsigned int x, unsigned int y) {
         }
     }
 
-    for (auto &prevItem : prevItems) {
+    for (auto &prevItem: prevItems) {
         delete (prevItem);
         // Spawn it in the world if it's not null (deleting until item spawning is implemented)
     }
 }
 
 bool Inventory::addItem(Item *item) {
-    for (auto &column : this->items) {
-        for (auto &slot : column) {
+    for (auto &column: this->items) {
+        for (auto &slot: column) {
             if (slot == nullptr) {
                 slot = item;
                 return true;
@@ -74,6 +74,18 @@ Item *Inventory::removeItem(sf::Vector2u pos) {
     return nullptr;
 }
 
+void Inventory::dropItem(sf::Vector2u invPos, sf::Vector2f worldPos) {
+    Item *item = items[invPos.y][invPos.x];
+    sf::Vector2f velocityOut = (worldPos - GameManager::player.getPosition()) * 0.1f;
+    GameManager::physicsManager.addItem(item, worldPos.x, worldPos.y, velocityOut.x, velocityOut.y);
+    items[invPos.y][invPos.x] = nullptr;
+}
+
+void Inventory::clear() {
+    for (auto *tmp: this->getItems())
+        delete tmp;
+}
+
 void Inventory::start() {
     Entity::start();
     this->background.setPosition(0.0f, 0.0f);
@@ -92,9 +104,11 @@ void Inventory::update() {
 
     if (selected) {
         this->items[selectedPos.y][selectedPos.x]->sprite.setColor(sf::Color::Green);
-        this->items[selectedPos.y][selectedPos.x]->sprite.setPosition((sf::Vector2f) mousePos - (sf::Vector2f) GameManager::window.getSize() * 0.5f);
+        this->items[selectedPos.y][selectedPos.x]->sprite.setPosition(
+                (sf::Vector2f) mousePos - (sf::Vector2f) GameManager::window.getSize() * 0.5f);
         if (Input::input.getEvent(TRIGGER).getUp()) {
             selected = false;
+            bool foundSpot = false;
             for (int y = 0; y < this->items.size(); y++) {
                 for (int x = 0; x < this->items[y].size(); x++) {
                     sf::Rect rect(origin.x + (0.05f + x) * scale,
@@ -105,9 +119,14 @@ void Inventory::update() {
                         if (rect.contains((sf::Vector2f) mousePos)) {
                             this->items[y][x] = this->items[selectedPos.y][selectedPos.x];
                             this->items[selectedPos.y][selectedPos.x] = nullptr;
+                            foundSpot = true;
                         }
                     }
                 }
+            }
+            if (!foundSpot) {
+                sf::Vector2f worldPos = GameManager::window.mapPixelToCoords(mousePos);
+                this->dropItem(selectedPos, worldPos);
             }
         }
     } else {
@@ -179,9 +198,9 @@ Item *Inventory::getItem(unsigned int x, unsigned int y) {
 
 std::vector<Item *> Inventory::getHotbarItems() {
     std::vector<Item *> itemVector;
-    for (auto &item : this->items[dimensions.y - 1]) {
-            if (item != nullptr)
-                itemVector.push_back(item);
+    for (auto &item: this->items[dimensions.y - 1]) {
+        if (item != nullptr)
+            itemVector.push_back(item);
     }
     return itemVector;
 }

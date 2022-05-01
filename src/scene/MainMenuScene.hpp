@@ -7,9 +7,6 @@
 
 class MainMenuScene : public Scene {
 public:
-    TileMap map;
-    PhysicsManager physicsManager;
-    Player player;
     sf::View view;
     void init() override;
     void update() override;
