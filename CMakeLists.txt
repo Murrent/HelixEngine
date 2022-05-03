@@ -66,56 +66,12 @@ add_executable(MainMenu ${src}/scene/main.cpp
         ${src}/system/ECS.hpp)
 
 add_executable(Game ${src}/game.cpp
-        ${src}/scene/GameManager.hpp
-        ${src}/scene/GameManager.cpp
-        ${src}/scene/Textures.cpp
-        ${src}/scene/Textures.hpp
-        ${src}/scene/Scene.hpp
-        ${src}/scene/Scene.cpp
-        ${src}/scene/MainMenuScene.hpp
-        ${src}/scene/MainMenuScene.cpp
         ${src}/system/Entity.cpp
         ${src}/system/Entity.hpp
         ${src}/system/Engine.cpp
         ${src}/system/Engine.hpp
         ${src}/noise/SimplexNoise.cpp
-        ${src}/noise/SimplexNoise.hpp
-        ${src}/system/Input.cpp
-        ${src}/system/Input.hpp
-        ${src}/tilemap/TileMap.hpp
-        ${src}/tilemap/TileMap.cpp
-        ${src}/tilemap/Chunk.hpp
-        ${src}/tilemap/Chunk.cpp
-        ${src}/physics/PhysicsManager.cpp
-        ${src}/physics/PhysicsManager.hpp
-        ${src}/physics/PhysicsObject.cpp
-        ${src}/physics/PhysicsObject.hpp
-        ${src}/physics/RectangleObject.cpp
-        ${src}/physics/RectangleObject.hpp
-        ${src}/content/Inventory.cpp
-        ${src}/content/Inventory.hpp
-        ${src}/content/Player.cpp
-        ${src}/content/Player.hpp
-        ${src}/content/Hotbar.cpp
-        ${src}/content/Hotbar.hpp
-        ${src}/content/items/Item.cpp
-        ${src}/content/items/Item.hpp
-        ${src}/content/items/PickaxeIron.cpp
-        ${src}/content/items/PickaxeIron.hpp
-        ${src}/content/items/IngotGold.cpp
-        ${src}/content/items/IngotGold.hpp
-        ${src}/content/items/IngotIron.cpp
-        ${src}/content/items/IngotIron.hpp
-        ${src}/content/items/Stick.cpp
-        ${src}/content/items/Stick.hpp
-        ${src}/content/items/SwordIron.cpp
-        ${src}/content/items/SwordIron.hpp
-        ${src}/content/items/Banana.cpp
-        ${src}/content/items/Banana.hpp
-        ${src}/common/Animation.cpp
-        ${src}/common/Animation.hpp
-        ${src}/common/Camera.cpp
-        ${src}/common/Camera.hpp)
+        ${src}/noise/SimplexNoise.hpp)
 
 add_executable(Physics ${src}/physics.cpp
         src/oldEngineCode/oldPhysicsManager/PhysicsManager.cpp
