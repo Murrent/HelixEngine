@@ -3,6 +3,7 @@
 
 #include "../content/items/Item.hpp"
 #include "Entity.hpp"
+#include <vector>
 
 class ItemManager : public Entity {
 private:
