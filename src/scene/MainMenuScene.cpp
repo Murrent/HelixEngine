@@ -78,7 +78,7 @@ void MainMenuScene::init() {
     GameManager::map.setTile(5, 6, 0);
     GameManager::map.setTile(6, 6, 0);
     GameManager::map.setTile(1, 1, 1);
-    GameManager::map.setTile(0, 4, 1);
+    GameManager::map.setTile(0, 3, 1);
     GameManager::map.setTile(15, 0, 2);
     //map.removeChunk(sf::Vector2i(-3, 0));
 

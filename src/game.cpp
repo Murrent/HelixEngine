@@ -21,7 +21,7 @@
 //};
 
 int main() {
-    for (float i = 0; i < 1; i += 0.005) {
+    for (float i = 0; i < 1; i += 0.005f) {
         auto x = i;                   // Define a float coordinate
         float noise = SimplexNoise::noise(x);   // Get the noise value for the coordinate
         std::cout << noise << std::endl;
