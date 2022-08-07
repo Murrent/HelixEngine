@@ -9,35 +9,29 @@
 #include <unordered_map>
 #include "Chunk.hpp"
 
-enum ColliderType {
-    RECTANGLE
-};
-
-struct TileInfo {
-    ColliderType colliderType = RECTANGLE;
-    sf::Texture texture;
-    // Sound effect
-    // Particle effect
-};
-
 class TileMap : public sf::Drawable, public sf::Transformable {
 public:
+    std::vector<Tile> tileLookupTable;
+
     bool setTileset(const std::string &tileset);
 
     bool addChunk(sf::Vector2u tileSize, const int *tiles, int x, int y);
 
     void setTile(int x, int y, unsigned int tile);
 
+    void setTile(int x, int y, const std::string& tile);
+
     unsigned int getTileType(int x, int y);
 
     unsigned int getTileType(float x, float y);
 
     void removeChunk(sf::Vector2i);
+
 private:
     void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 
     //std::vector<Chunk> chunks;
-    std::vector<TileInfo> tileInfoTable;
+
     std::unordered_map<int, std::unordered_map<int, Chunk>> chunks;
     sf::Texture m_tileset;
 };

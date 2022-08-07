@@ -12,7 +12,7 @@ Textures GameManager::textures;
 
 void GameManager::init() {
     GameManager::window.create(sf::VideoMode(1000, 500), "SFML works!");
-    GameManager::window.setFramerateLimit(60);
+    //GameManager::window.setFramerateLimit(60);
     GameManager::textures.load("../assets/sprites/items/");
     GameManager::scene = new MainMenuScene();
 

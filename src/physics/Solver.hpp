@@ -10,7 +10,7 @@ class Solver {
 public:
     sf::Vector2f gravity = {0.0f, 0.0f};
 
-    void update(std::vector<VerletObject> &objects, std::vector<Link>& links, float dt) {
+    void update(std::vector<VerletObject> &objects, std::vector<RotatorLink>& links, float dt) {
         const uint32_t subSteps = 1;
         const float subStepsMultiplier = 1.0f / (float)subSteps;
         const float delta = dt * subStepsMultiplier;

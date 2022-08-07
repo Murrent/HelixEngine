@@ -8,6 +8,28 @@
 #include <SFML/Graphics/RenderTarget.hpp>
 #include <SFML/Graphics/Sprite.hpp>
 
+
+enum ColliderType {
+    NONE,
+    SQUARE
+};
+
+class Tile {
+public:
+    std::string name;
+    ColliderType colliderType = SQUARE;
+    bool animate, choseRandom;
+    sf::Vector2u size = {1,1};
+    // Sound effect
+    // Particle effect
+    std::vector<sf::IntRect> frames;
+};
+
+// One large spritesheet for tilemap sprites, with solid blocks, slopes, animated tiles, chests etc...
+// chunk has an array of texture integers, and vector of animated tiles, so we easily can loop through and update them.
+// Maybe have one array of tiles that point to tileinfotable so that multiple animation frames correspond to a single tile
+
+
 class Chunk : public sf::Drawable, public sf::Transformable {
 public:
 
@@ -26,6 +48,9 @@ private:
 
     unsigned int tiles[size][size];
 
+    std::vector<sf::Vector2u> animatedTiles;
+
+    std::vector<sf::Sprite> multiTileSprites;
     sf::VertexArray m_vertices;
     sf::Texture *m_tileset;
 };

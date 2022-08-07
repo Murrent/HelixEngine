@@ -6,7 +6,7 @@
 
 
 std::vector<VerletObject> objects;
-std::vector<Link> links;
+std::vector<RotatorLink> links;
 std::vector<sf::Color> colors;
 sf::CircleShape shape;
 sf::Text text;
@@ -83,10 +83,11 @@ void createMenu(sf::RenderWindow &window) {
                         if (i == selectedObj) continue;
                         if (Dist(mousePos, objects[i].position) < objects[i].size) {
                             links.emplace_back();
-                            Link &link = links[links.size() - 1];
+                            RotatorLink &link = links[links.size() - 1];
                             link.object1 = selectedObj;
                             link.object2 = i;
                             link.targetDistance = Dist(objects[link.object1].position, objects[link.object2].position);
+                            link.direction = objects[link.object2].position - objects[link.object1].position;
                             selectedObj = -1;
                         }
                     }
@@ -101,10 +102,11 @@ void createMenu(sf::RenderWindow &window) {
                 colors[colors.size() - 1] = sf::Color(rand() % 255 + 0, rand() % 255 + 0, rand() % 255 + 0);
                 for (auto& i : inConnectRadius){
                     links.emplace_back();
-                    Link &link = links[links.size() - 1];
+                    RotatorLink &link = links[links.size() - 1];
                     link.object1 = objects.size() - 1;
                     link.object2 = i;
                     link.targetDistance = Dist(objects[link.object1].position, objects[link.object2].position);
+                    link.direction = objects[link.object2].position - objects[link.object1].position;
                 }
 //                for (int i = 0; i < objects.size(); ++i) {
 //                    for (int j = i + 1; j < objects.size(); ++j) {
