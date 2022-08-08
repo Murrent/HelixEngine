@@ -9,8 +9,6 @@
 class ItemObject : public Entity, public RectangleObject {
 public:
     sf::Sprite sprite;
-    std::string name;
-    unsigned char amount{0};
     Item *item{};
     static constexpr float noPickupTime = 2.0f;
     sf::Clock clock;

@@ -165,13 +165,17 @@ void Inventory::draw() {
         for (int x = 0; x < this->items[y].size(); x++) {
             sf::RectangleShape rect;
             rect.setOrigin(this->background.getSize() * scale * 0.5f);
-            rect.setFillColor(sf::Color(80, 80, 80));
+            if (selected && selectedPos.x == x && selectedPos.y == y)
+                rect.setFillColor(sf::Color(100, 100, 100));
+            else
+                rect.setFillColor(sf::Color(80, 80, 80));
             rect.setSize(sf::Vector2f(0.9f, 0.9f) * scale);
             rect.setPosition((0.05f + x) * scale, (0.05f + y) * scale);
             GameManager::window.draw(rect);
         }
     }
 
+    // Fix rendering of the item, rendering a tile is too big and probably scaled down which makes it invisible
     for (int y = 0; y < this->items.size(); y++) {
         for (int x = 0; x < this->items[y].size(); x++) {
             if (this->items[y][x] != nullptr) {

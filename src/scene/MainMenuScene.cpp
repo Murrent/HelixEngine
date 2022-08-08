@@ -10,6 +10,7 @@
 #include "../content/items/PickaxeIron.hpp"
 #include "../content/items/Banana.hpp"
 #include "../tilemap/MapGenerator.hpp"
+#include "../content/items/TileItem.hpp"
 
 void MainMenuScene::init() {
     //MainMenuScene mainMenuScene;
@@ -195,6 +196,24 @@ void MainMenuScene::init() {
         if (!GameManager::player.inventory.addItem(stick))
             delete stick;
     }
+    {
+        auto *stick = new TileItem(GameManager::map.tileLookupTable[1]);
+        if (!GameManager::player.inventory.addItem(stick))
+            delete stick;
+    }
+
+
+    this->text.setString("hello");
+    this->text.setScale(0.1f, 0.1f);
+    this->text.setCharacterSize(24);
+    this->text.setFillColor(sf::Color::Red);
+    this->text.setStyle(sf::Text::Bold | sf::Text::Underlined);
+    if (!this->font.loadFromFile("../assets/TAHOMA_0.TTF"))
+    {
+        // error...
+        printf("failed to load font\n");
+    }
+    this->text.setFont(font);
 }
 
 void MainMenuScene::update() {
@@ -275,6 +294,11 @@ void MainMenuScene::update() {
 //    player.setVelocity(vel);
     GameManager::player.updateInputs();
     GameManager::physicsManager.update();
+
+    sf::Vector2i mousePos = sf::Mouse::getPosition(GameManager::window);
+    sf::Vector2f worldPos = GameManager::window.mapPixelToCoords(mousePos);
+    std::string posString = "x: " + std::to_string(worldPos.x) + " y: " + std::to_string(worldPos.y);
+    this->text.setString(posString);
 }
 
 void MainMenuScene::draw() {
@@ -282,6 +306,8 @@ void MainMenuScene::draw() {
     GameManager::window.draw(GameManager::map);
     GameManager::physicsManager.draw();
     GameManager::player.draw();
+    text.setPosition(GameManager::player.getPosition());
+    GameManager::window.draw(text);
     GameManager::window.display();
 }
 

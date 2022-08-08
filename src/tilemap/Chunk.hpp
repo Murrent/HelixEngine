@@ -7,6 +7,7 @@
 #include <SFML/Graphics/Texture.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
 #include <SFML/Graphics/Sprite.hpp>
+#include <SFML/Graphics/RenderTexture.hpp>
 
 
 enum ColliderType {
@@ -16,10 +17,11 @@ enum ColliderType {
 
 class Tile {
 public:
+    unsigned int id;
     std::string name;
     ColliderType colliderType = SQUARE;
     bool animate, choseRandom;
-    sf::Vector2u size = {1,1};
+    sf::Vector2u size = {1, 1};
     // Sound effect
     // Particle effect
     std::vector<sf::IntRect> frames;
@@ -32,11 +34,11 @@ public:
 
 class Chunk : public sf::Drawable, public sf::Transformable {
 public:
-
-    static constexpr unsigned int size = 16;
+    static constexpr unsigned int size = 32;
     static constexpr unsigned int spriteSize = 4;
+    sf::Vector2i position;
 
-    bool load(sf::Texture &tileset, sf::Vector2u tileSize, const int *tiles);
+    bool load(sf::Texture &tileset, int x, int y, const int *tiles);
 
     void setTile(unsigned int x, unsigned int y, unsigned int tile);
 
@@ -46,7 +48,7 @@ private:
 
     void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 
-    unsigned int tiles[size][size];
+    unsigned int tiles[size][size]{};
 
     std::vector<sf::Vector2u> animatedTiles;
 

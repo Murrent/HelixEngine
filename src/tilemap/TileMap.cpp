@@ -19,11 +19,13 @@ void getNextConfigElement(std::string &string, std::string &buffer, char separat
     index = endPos + 1;
 }
 
-Tile createTile(std::string &string) {
+Tile TileMap::createTile(std::string &string) {
     unsigned long long index = 0;
     std::string buffer;
 
     Tile tile;
+
+    tile.id = tileLookupTable.size();
 
     // The tile name
     getNextConfigElement(string, buffer, ',', index);
@@ -107,35 +109,32 @@ bool TileMap::setTileset(const std::string &tileset) {
 bool TileMap::addChunk(sf::Vector2u tileSize, const int *tiles, int x, int y) {
     Chunk chunk;
     chunk.setPosition((float) (x) * Chunk::size, (float) (y) * Chunk::size);
-    if (chunk.load(m_tileset, tileSize, tiles)) {
-        chunks[x][y] = chunk;
+    if (chunk.load(m_tileset, x, y, tiles)) {
+        chunks.push_back(chunk);
         return true;
     } else
         return false;
 }
 
 void TileMap::draw(sf::RenderTarget &target, sf::RenderStates states) const {
-    for (auto &x: chunks) {
-        for (auto &y: x.second) {
-            target.draw(y.second);
-        }
+    for (auto &i: chunks) {
+        target.draw(i);
     }
 }
 
 void TileMap::setTile(int x, int y, unsigned int tile) {
     sf::Vector2i chunkPos(std::floor(float(x) / float(Chunk::size)), std::floor(float(y) / float(Chunk::size)));
     //std::cout << chunkPos.x << " " << chunkPos.y << std::endl;
-    auto gotX = chunks.find(chunkPos.x);
-    if (gotX != chunks.end()) {
-        auto gotY = chunks[chunkPos.x].find(chunkPos.y);
-        if (gotY != chunks[chunkPos.x].end()) {
-            chunks[chunkPos.x][chunkPos.y].setTile(x - chunkPos.x * (int) Chunk::size,
-                                                   y - chunkPos.y * (int) Chunk::size, tile);
+    for (auto &chunk : chunks) {
+        if (chunk.position == chunkPos) {
+            chunk.setTile(x - chunkPos.x * (int) Chunk::size,
+                          y - chunkPos.y * (int) Chunk::size, tile);
+            return;
         }
     }
 }
 
-void TileMap::setTile(int x, int y, const std::string& tileName) {
+void TileMap::setTile(int x, int y, const std::string &tileName) {
     for (int i = 0; i < tileLookupTable.size(); i++) {
         if (tileLookupTable[i].name == tileName)
             setTile(x, y, i);
@@ -143,27 +142,39 @@ void TileMap::setTile(int x, int y, const std::string& tileName) {
 }
 
 void TileMap::removeChunk(sf::Vector2i pos) {
-    auto gotX = chunks.find(pos.x);
-    if (gotX != chunks.end()) {
-        auto gotY = chunks[pos.x].find(pos.y);
-        if (gotY != chunks[pos.x].end()) {
-            chunks[pos.x].erase(pos.y);
-            if (chunks[pos.x].empty())
-                chunks.erase(pos.x);
+    for (int i = 0; i < chunks.size(); i++) {
+        auto &chunk = chunks[i];
+        if (chunk.position == pos) {
+            chunks.erase(chunks.begin() + i);
         }
     }
+//    auto gotX = chunks.find(pos.x);
+//    if (gotX != chunks.end()) {
+//        auto gotY = chunks[pos.x].find(pos.y);
+//        if (gotY != chunks[pos.x].end()) {
+//            chunks[pos.x].erase(pos.y);
+//            if (chunks[pos.x].empty())
+//                chunks.erase(pos.x);
+//        }
+//    }
 }
 
 unsigned int TileMap::getTileType(int x, int y) {
     sf::Vector2i chunkPos(std::floor(float(x) / float(Chunk::size)), std::floor(float(y) / float(Chunk::size)));
-    auto gotX = chunks.find(chunkPos.x);
-    if (gotX != chunks.end()) {
-        auto gotY = chunks[chunkPos.x].find(chunkPos.y);
-        if (gotY != chunks[chunkPos.x].end()) {
-            return chunks[chunkPos.x][chunkPos.y].getTileType(x - chunkPos.x * (int) Chunk::size,
-                                                              y - chunkPos.y * (int) Chunk::size);
+    for (auto &chunk : chunks) {
+        if (chunk.position == chunkPos) {
+            return chunk.getTileType(x - chunkPos.x * (int) Chunk::size,
+                                     y - chunkPos.y * (int) Chunk::size);
         }
     }
+//    auto gotX = chunks.find(chunkPos.x);
+//    if (gotX != chunks.end()) {
+//        auto gotY = chunks[chunkPos.x].find(chunkPos.y);
+//        if (gotY != chunks[chunkPos.x].end()) {
+//            return chunks[chunkPos.x][chunkPos.y].getTileType(x - chunkPos.x * (int) Chunk::size,
+//                                                              y - chunkPos.y * (int) Chunk::size);
+//        }
+//    }
     return 0;
 }
 

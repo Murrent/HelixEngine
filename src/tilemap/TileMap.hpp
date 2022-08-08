@@ -12,6 +12,7 @@
 class TileMap : public sf::Drawable, public sf::Transformable {
 public:
     std::vector<Tile> tileLookupTable;
+    sf::Texture m_tileset;
 
     bool setTileset(const std::string &tileset);
 
@@ -28,11 +29,12 @@ public:
     void removeChunk(sf::Vector2i);
 
 private:
+    Tile createTile(std::string &string);
+
     void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 
-    //std::vector<Chunk> chunks;
+    std::vector<Chunk> chunks;
 
-    std::unordered_map<int, std::unordered_map<int, Chunk>> chunks;
-    sf::Texture m_tileset;
+    //std::unordered_map<int, std::unordered_map<int, Chunk>> chunks;
 };
 

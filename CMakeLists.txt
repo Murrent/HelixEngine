@@ -63,7 +63,7 @@ add_executable(MainMenu ${src}/scene/main.cpp
         ${src}/common/Animation.cpp
         ${src}/common/Animation.hpp
         ${src}/system/ECS.cpp
-        ${src}/system/ECS.hpp src/common/Random.cpp src/common/Random.hpp src/tilemap/MapGenerator.cpp src/tilemap/MapGenerator.hpp)
+        ${src}/system/ECS.hpp src/common/Random.cpp src/common/Random.hpp src/tilemap/MapGenerator.cpp src/tilemap/MapGenerator.hpp src/content/items/TileItem.cpp src/content/items/TileItem.hpp)
 
 add_executable(Game ${src}/game.cpp
         ${src}/system/Entity.cpp

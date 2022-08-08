@@ -1,7 +1,9 @@
 #include "Item.hpp"
 #include "../../scene/GameManager.hpp"
 
-Item::Item() {}
+Item::Item() = default;
+
+Item::Item(unsigned char _stackSize) : stackSize(_stackSize) {}
 
 Item::~Item() = default;
 

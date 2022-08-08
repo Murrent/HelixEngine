@@ -2,6 +2,7 @@
 
 
 #include <SFML/Graphics/RectangleShape.hpp>
+#include <SFML/Graphics/Text.hpp>
 #include "../system/Entity.hpp"
 #include "../physics/RectangleObject.hpp"
 #include "Inventory.hpp"

@@ -11,9 +11,11 @@ public:
     std::string name;
     std::string description;
     const unsigned char stackSize{16};
-    unsigned char amount{0};
+    unsigned char amount{1};
 
     Item();
+
+    Item(unsigned char _stackSize);
 
     virtual void Use() = 0;
 
