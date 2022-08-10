@@ -2,7 +2,7 @@
 #include "../../scene/GameManager.hpp"
 
 IngotGold::IngotGold() {
-    this->sprite.setTexture(GameManager::textures.textures["ingot_gold"]);
+    this->sprite.setTexture(GameManager::resources.textures["ingot_gold"]);
 }
 
 void IngotGold::Use() {

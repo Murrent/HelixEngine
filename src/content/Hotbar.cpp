@@ -64,9 +64,14 @@ void Hotbar::draw() {
         GameManager::window.draw(rect);
     }
 
+    sf::Text text;
+    text.setFont(GameManager::resources.fonts["tahoma"]);
+    text.setFillColor(sf::Color::Black);
     for (int y = 0; y < this->items.size(); y++) {
         if (this->items[y] != nullptr) {
-            sf::Vector2f textureSize = (sf::Vector2f) this->items[y]->sprite.getTexture()->getSize();
+            sf::Vector2f textureSize = sf::Vector2f(this->items[y]->sprite.getTextureRect().width,
+                                                    this->items[y]->sprite.getTextureRect().height);
+
             float largestSize = textureSize.x > textureSize.y ? textureSize.x : textureSize.y;
             this->items[y]->sprite.setOrigin(textureSize * 0.5f);
             this->items[y]->sprite.setScale((1.0f / largestSize) * sf::Vector2f(0.7f, 0.7f) * scale);
@@ -74,6 +79,12 @@ void Hotbar::draw() {
                 this->items[y]->sprite.setPosition((0.0f - (float) this->items.size() * 0.5f + 0.5f + y) * scale,
                                                    ((0.05f - 0.50f * scale) + (float) windowSize.y * 0.5f));
             this->items[y]->draw();
+
+            text.setString(std::to_string(this->items[y]->amount) + "/" + std::to_string(this->items[y]->stackSize));
+            text.setPosition((0.0f - (float) this->items.size() * 0.5f + 0.5f + y) * scale,
+                             ((0.05f - 0.50f * scale) + (float) windowSize.y * 0.5f));
+            text.setScale(sf::Vector2f(0.01f, 0.01f) * scale);
+            GameManager::window.draw(text);
         }
     }
 

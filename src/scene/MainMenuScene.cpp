@@ -165,14 +165,14 @@ void MainMenuScene::init() {
     GameManager::player.shape.setFillColor(sf::Color(255, 255, 255, 100));
     GameManager::physicsManager.players.push_back(&GameManager::player);
 
-    for (int i = 0; i < 23; i++) {
-        auto *stick = new Stick();
-        if (!GameManager::player.inventory.addItem(stick))
-            delete stick;
-    }
 
     {
         auto *stick = new SwordIron();
+        if (!GameManager::player.inventory.addItem(stick))
+            delete stick;
+    }
+    {
+        auto *stick = new PickaxeIron();
         if (!GameManager::player.inventory.addItem(stick))
             delete stick;
     }
@@ -183,11 +183,6 @@ void MainMenuScene::init() {
     }
     {
         auto *stick = new IngotIron();
-        if (!GameManager::player.inventory.addItem(stick))
-            delete stick;
-    }
-    {
-        auto *stick = new PickaxeIron();
         if (!GameManager::player.inventory.addItem(stick))
             delete stick;
     }
@@ -208,12 +203,8 @@ void MainMenuScene::init() {
     this->text.setCharacterSize(24);
     this->text.setFillColor(sf::Color::Red);
     this->text.setStyle(sf::Text::Bold | sf::Text::Underlined);
-    if (!this->font.loadFromFile("../assets/TAHOMA_0.TTF"))
-    {
-        // error...
-        printf("failed to load font\n");
-    }
-    this->text.setFont(font);
+
+    this->text.setFont(GameManager::resources.fonts["tahoma"]);
 }
 
 void MainMenuScene::update() {
@@ -233,8 +224,8 @@ void MainMenuScene::update() {
             sf::View tmp = GameManager::window.getView();
             sf::Vector2f diff = sf::Vector2f(GameManager::window.getSize().x, GameManager::window.getSize().y) /
                                 (float) GameManager::window.getSize().y;
-            tmp.setSize(128.f * diff.x,
-                        128.f * diff.y);
+            tmp.setSize(32.f * diff.x,
+                        32.f * diff.y);
             GameManager::window.setView(tmp);
         } else if (event.type == sf::Event::MouseWheelScrolled) {
             Input::input.scrollUpdate(event);
@@ -297,7 +288,7 @@ void MainMenuScene::update() {
 
     sf::Vector2i mousePos = sf::Mouse::getPosition(GameManager::window);
     sf::Vector2f worldPos = GameManager::window.mapPixelToCoords(mousePos);
-    std::string posString = "x: " + std::to_string(worldPos.x) + " y: " + std::to_string(worldPos.y);
+    std::string posString = "Tile: " + GameManager::map.tileLookupTable[GameManager::map.getTileType(worldPos.x, worldPos.y)].name;
     this->text.setString(posString);
 }
 
@@ -306,7 +297,7 @@ void MainMenuScene::draw() {
     GameManager::window.draw(GameManager::map);
     GameManager::physicsManager.draw();
     GameManager::player.draw();
-    text.setPosition(GameManager::player.getPosition());
+    text.setPosition(GameManager::player.getPosition() - sf::Vector2f(2.0f, 10.0f));
     GameManager::window.draw(text);
     GameManager::window.display();
 }

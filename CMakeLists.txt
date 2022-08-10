@@ -42,8 +42,8 @@ add_executable(MainMenu ${src}/scene/main.cpp
         ${src}/system/ItemManager.hpp
         ${src}/physics/ItemObject.cpp
         ${src}/physics/ItemObject.hpp
-        ${src}/scene/Textures.cpp
-        ${src}/scene/Textures.hpp
+        ${src}/scene/Resources.cpp
+        ${src}/scene/Resources.hpp
         ${src}/content/items/PickaxeIron.cpp
         ${src}/content/items/PickaxeIron.hpp
         ${src}/content/items/IngotGold.cpp

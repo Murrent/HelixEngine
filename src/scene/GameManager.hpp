@@ -2,7 +2,7 @@
 
 #include <SFML/Graphics.hpp>
 #include "Scene.hpp"
-#include "Textures.hpp"
+#include "Resources.hpp"
 #include "../tilemap/TileMap.hpp"
 #include "../physics/PhysicsManager.hpp"
 
@@ -18,7 +18,7 @@ public:
     static TileMap map;
     static PhysicsManager physicsManager;
     static Player player;
-    static Textures textures;
+    static Resources resources;
     static void stop();
     static void run();
 };

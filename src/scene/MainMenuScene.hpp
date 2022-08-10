@@ -8,7 +8,6 @@
 class MainMenuScene : public Scene {
 public:
     sf::View view;
-    sf::Font font;
     sf::Text text;
     void init() override;
     void update() override;

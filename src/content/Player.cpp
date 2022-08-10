@@ -58,6 +58,7 @@ void Player::updateInputs() {
         }
     }
 
+    hotbar.items = inventory.getHotbarItems();
 }
 
 void Player::draw() {

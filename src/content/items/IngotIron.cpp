@@ -2,7 +2,7 @@
 #include "../../scene/GameManager.hpp"
 
 IngotIron::IngotIron() {
-    this->sprite.setTexture(GameManager::textures.textures["ingot_iron"]);
+    this->sprite.setTexture(GameManager::resources.textures["ingot_iron"]);
 }
 
 void IngotIron::Use() {

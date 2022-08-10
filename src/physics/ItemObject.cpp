@@ -6,7 +6,8 @@ ItemObject::ItemObject(Item *_item)
     this->sprite = this->item->sprite;
     this->sprite.setColor(sf::Color::White);
     sf::Rect<int> rect = this->sprite.getTextureRect();
-    this->setSize(sf::Vector2f(rect.width, rect.height) * 0.125f);
+    this->setSize(sf::Vector2f((float)rect.width, (float)rect.height) * 0.125f * 0.99f);
+    this->sprite.setOrigin((float)rect.width * 0.5f, (float)rect.height * 0.5f);
     clock.restart();
 }
 
@@ -15,7 +16,8 @@ ItemObject::ItemObject(Item *_item, float x, float y)
     this->sprite = this->item->sprite;
     this->sprite.setColor(sf::Color::White);
     sf::Rect<int> rect = this->sprite.getTextureRect();
-    this->setSize(sf::Vector2f(rect.width, rect.height) * 0.125f);
+    this->setSize(sf::Vector2f((float)rect.width, (float)rect.height) * 0.125f * 0.99f);
+    this->sprite.setOrigin((float)rect.width * 0.5f, (float)rect.height * 0.5f);
     clock.restart();
 }
 
@@ -24,7 +26,8 @@ ItemObject::ItemObject(Item *_item, float x, float y, float velX, float velY)
     this->sprite = this->item->sprite;
     this->sprite.setColor(sf::Color::White);
     sf::Rect<int> rect = this->sprite.getTextureRect();
-    this->setSize(sf::Vector2f(rect.width, rect.height) * 0.125f);
+    this->setSize(sf::Vector2f((float)rect.width, (float)rect.height) * 0.125f * 0.99f);
+    this->sprite.setOrigin((float)rect.width * 0.5f, (float)rect.height * 0.5f);
     clock.restart();
 }
 

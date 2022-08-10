@@ -8,12 +8,12 @@ sf::RenderWindow GameManager::window;
 TileMap GameManager::map;
 PhysicsManager GameManager::physicsManager;
 Player GameManager::player;
-Textures GameManager::textures;
+Resources GameManager::resources;
 
 void GameManager::init() {
     GameManager::window.create(sf::VideoMode(1000, 500), "SFML works!");
     GameManager::window.setFramerateLimit(60);
-    GameManager::textures.load("../assets/sprites/items/");
+    GameManager::resources.load("../assets/");
     GameManager::scene = new MainMenuScene();
 
     GameManager::scene->init();

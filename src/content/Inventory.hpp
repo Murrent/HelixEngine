@@ -33,6 +33,8 @@ public:
 
     Item *removeItem(sf::Vector2u pos);
 
+    Item *removeItem(Item *item);
+
     void dropItem(sf::Vector2u invPos, sf::Vector2f worldPos);
 
     void clear();

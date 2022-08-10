@@ -4,10 +4,12 @@
 #include <unordered_map>
 #include <string>
 #include <SFML/Graphics/Texture.hpp>
+#include <SFML/Graphics/Font.hpp>
 
-class Textures {
+class Resources {
 public:
     std::unordered_map<std::string, sf::Texture> textures;
+    std::unordered_map<std::string, sf::Font> fonts;
 
     bool load(const char *directory);
 };

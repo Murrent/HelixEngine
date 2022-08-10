@@ -1,3 +1,4 @@
+#include <iostream>
 #include "Inventory.hpp"
 #include "../scene/GameManager.hpp"
 #include "../system/Input.hpp"
@@ -46,9 +47,17 @@ void Inventory::setSize(unsigned int x, unsigned int y) {
 }
 
 bool Inventory::addItem(Item *item) {
-    for (auto &column: this->items) {
-        for (auto &slot: column) {
-            if (slot == nullptr) {
+    for (int y = (int) this->items.size() - 1; y >= 0; y--) {
+        for (unsigned int x = 0; x < this->items[y].size(); x++) {
+            auto &slot = this->items[y][x];
+            if (slot != nullptr && slot->sprite.getTexture() == item->sprite.getTexture() &&
+                slot->sprite.getTextureRect() == item->sprite.getTextureRect()) {
+                if (slot->amount < slot->stackSize) {
+                    slot->amount += item->amount;
+                    delete (item);
+                    return true;
+                }
+            } else if (slot == nullptr) {
                 slot = item;
                 return true;
             }
@@ -70,6 +79,18 @@ Item *Inventory::removeItem(sf::Vector2u pos) {
         Item *item = items[pos.y][pos.x];
         items[pos.y][pos.x] = nullptr;
         return item;
+    }
+    return nullptr;
+}
+
+Item *Inventory::removeItem(Item *item) {
+    for (auto &column: this->items) {
+        for (auto &tmpItem: column) {
+            if (item == tmpItem) {
+                tmpItem = nullptr;
+                return item;
+            }
+        }
     }
     return nullptr;
 }
@@ -127,7 +148,7 @@ void Inventory::update() {
             }
             if (!foundSpot) {
                 sf::Vector2f worldPos = GameManager::window.mapPixelToCoords(mousePos);
-                this->dropItem((sf::Vector2u)selectedPos, worldPos);
+                this->dropItem((sf::Vector2u) selectedPos, worldPos);
             }
         }
     } else {
@@ -175,11 +196,14 @@ void Inventory::draw() {
         }
     }
 
-    // Fix rendering of the item, rendering a tile is too big and probably scaled down which makes it invisible
+    sf::Text text;
+    text.setFont(GameManager::resources.fonts["tahoma"]);
     for (int y = 0; y < this->items.size(); y++) {
         for (int x = 0; x < this->items[y].size(); x++) {
             if (this->items[y][x] != nullptr) {
-                sf::Vector2f size = (sf::Vector2f) this->items[y][x]->sprite.getTexture()->getSize();
+                sf::Vector2f size = sf::Vector2f(this->items[y][x]->sprite.getTextureRect().width,
+                                                 this->items[y][x]->sprite.getTextureRect().height);
+
                 float largestSize = size.x > size.y ? size.x : size.y;
                 this->items[y][x]->sprite.setOrigin(size * 0.5f);
                 this->items[y][x]->sprite.setScale((1.0f / largestSize) * sf::Vector2f(0.7f, 0.7f) * scale);
@@ -187,6 +211,12 @@ void Inventory::draw() {
                     this->items[y][x]->sprite.setPosition((0.0f - dimensions.x * 0.5f + 0.5f + x) * scale,
                                                           (0.0f - dimensions.y * 0.5f + 0.5f + y) * scale);
                 this->items[y][x]->draw();
+
+                text.setString(std::to_string(this->items[y][x]->amount) + "/" + std::to_string(this->items[y][x]->stackSize));
+                text.setPosition((0.0f - dimensions.x * 0.5f + 0.5f + x) * scale,
+                                 (0.0f - dimensions.y * 0.5f + 0.5f + y) * scale);
+                text.setScale(sf::Vector2f(0.01f, 0.01f) * scale);
+                GameManager::window.draw(text);
             }
         }
     }
@@ -214,7 +244,7 @@ const sf::Vector2u &Inventory::getDimensions() const {
 }
 
 void Inventory::close() {
-    for (auto& column : items) {
+    for (auto &column : items) {
         for (auto slot : column) {
             if (slot != nullptr)
                 slot->sprite.setColor(sf::Color::White);
