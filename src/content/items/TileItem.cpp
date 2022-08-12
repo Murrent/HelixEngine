@@ -35,7 +35,18 @@ void TileItem::Use() {
 }
 
 void TileItem::Use2() {
-
+    sf::Vector2i mousePos = sf::Mouse::getPosition(GameManager::window);
+    sf::Vector2f worldPos = GameManager::window.mapPixelToCoords(mousePos);
+    sf::Vector2i tilePos = sf::Vector2i(std::floor(worldPos.x), std::floor(worldPos.y));
+    if (GameManager::map.getTileTypeBack(tilePos.x, tilePos.y) == 0) {
+        GameManager::map.setTileBack(tilePos.x, tilePos.y, tileType);
+        amount--;
+        if (amount == 0)
+        {
+            GameManager::player.inventory.removeItem(this);
+            delete this;
+        }
+    }
 }
 
 TileItem::~TileItem() {

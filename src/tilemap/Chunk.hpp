@@ -42,18 +42,23 @@ public:
 
     void setTile(unsigned int x, unsigned int y, unsigned int tile);
 
+    void setTileBack(unsigned int x, unsigned int y, unsigned int tile);
+
     unsigned int getTileType(unsigned int x, unsigned int y);
+
+    unsigned int getTileTypeBack(unsigned int x, unsigned int y);
 
 private:
 
     void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 
     unsigned int tiles[size][size]{};
+    unsigned int backTiles[size][size]{};
 
-    std::vector<sf::Vector2u> animatedTiles;
+    std::vector<sf::Vector2u> animatedTiles, animatedBackTiles;
 
     std::vector<sf::Sprite> multiTileSprites;
-    sf::VertexArray m_vertices;
+    sf::VertexArray m_vertices, b_vertices;
     sf::Texture *m_tileset;
 };
 

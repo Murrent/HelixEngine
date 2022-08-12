@@ -3,16 +3,21 @@
 #include <random>
 #include <chrono>
 
-static unsigned seed = 0;
 static std::minstd_rand0 generator(std::chrono::system_clock::now().time_since_epoch().count());
 
-void rngRefreshSeed();
+unsigned int rngRefreshSeed();
+
+void rngSetSeed(unsigned int _seed);
 
 unsigned rngUInt();
 
 double rngD();
 
+double rngD01();
+
 float rngF();
+
+float rngF01();
 
 unsigned rngRangeU(unsigned lowest, unsigned highest);
 

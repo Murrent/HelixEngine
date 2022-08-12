@@ -134,10 +134,29 @@ void TileMap::setTile(int x, int y, unsigned int tile) {
     }
 }
 
+void TileMap::setTileBack(int x, int y, unsigned int tile) {
+    sf::Vector2i chunkPos(std::floor(float(x) / float(Chunk::size)), std::floor(float(y) / float(Chunk::size)));
+    //std::cout << chunkPos.x << " " << chunkPos.y << std::endl;
+    for (auto &chunk : chunks) {
+        if (chunk.position == chunkPos) {
+            chunk.setTileBack(x - chunkPos.x * (int) Chunk::size,
+                              y - chunkPos.y * (int) Chunk::size, tile);
+            return;
+        }
+    }
+}
+
 void TileMap::setTile(int x, int y, const std::string &tileName) {
     for (int i = 0; i < tileLookupTable.size(); i++) {
         if (tileLookupTable[i].name == tileName)
             setTile(x, y, i);
+    }
+}
+
+void TileMap::setTileBack(int x, int y, const std::string &tileName) {
+    for (int i = 0; i < tileLookupTable.size(); i++) {
+        if (tileLookupTable[i].name == tileName)
+            setTileBack(x, y, i);
     }
 }
 
@@ -167,18 +186,33 @@ unsigned int TileMap::getTileType(int x, int y) {
                                      y - chunkPos.y * (int) Chunk::size);
         }
     }
-//    auto gotX = chunks.find(chunkPos.x);
-//    if (gotX != chunks.end()) {
-//        auto gotY = chunks[chunkPos.x].find(chunkPos.y);
-//        if (gotY != chunks[chunkPos.x].end()) {
-//            return chunks[chunkPos.x][chunkPos.y].getTileType(x - chunkPos.x * (int) Chunk::size,
-//                                                              y - chunkPos.y * (int) Chunk::size);
-//        }
-//    }
+    return 0;
+}
+
+unsigned int TileMap::getTileTypeBack(int x, int y) {
+    sf::Vector2i chunkPos(std::floor(float(x) / float(Chunk::size)), std::floor(float(y) / float(Chunk::size)));
+    for (auto &chunk : chunks) {
+        if (chunk.position == chunkPos) {
+            return chunk.getTileTypeBack(x - chunkPos.x * (int) Chunk::size,
+                                         y - chunkPos.y * (int) Chunk::size);
+        }
+    }
     return 0;
 }
 
 unsigned int TileMap::getTileType(float x, float y) {
     return this->getTileType(int(std::floor(x)), int(std::floor(y)));
+}
+
+unsigned int TileMap::getTileTypeBack(float x, float y) {
+    return this->getTileTypeBack(int(std::floor(x)), int(std::floor(y)));
+}
+
+bool TileMap::chunkExists(int x, int y) {
+    for (auto &chunk : chunks) {
+        if (chunk.position.x == x && chunk.position.y == y)
+            return true;
+    }
+    return false;
 }
 

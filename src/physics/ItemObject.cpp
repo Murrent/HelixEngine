@@ -1,13 +1,16 @@
+#include <cmath>
+#include <valarray>
 #include "ItemObject.hpp"
 #include "../scene/GameManager.hpp"
+#include "../common/Animation.hpp"
 
 ItemObject::ItemObject(Item *_item)
         : item(_item), RectangleObject(0, 0, 0.5f, 0.5f) {
     this->sprite = this->item->sprite;
     this->sprite.setColor(sf::Color::White);
     sf::Rect<int> rect = this->sprite.getTextureRect();
-    this->setSize(sf::Vector2f((float)rect.width, (float)rect.height) * 0.125f * 0.99f);
-    this->sprite.setOrigin((float)rect.width * 0.5f, (float)rect.height * 0.5f);
+    this->setSize(sf::Vector2f((float) rect.width, (float) rect.height) * 0.125f * 0.99f);
+    this->sprite.setOrigin((float) rect.width * 0.5f, (float) rect.height * 0.5f);
     clock.restart();
 }
 
@@ -16,8 +19,8 @@ ItemObject::ItemObject(Item *_item, float x, float y)
     this->sprite = this->item->sprite;
     this->sprite.setColor(sf::Color::White);
     sf::Rect<int> rect = this->sprite.getTextureRect();
-    this->setSize(sf::Vector2f((float)rect.width, (float)rect.height) * 0.125f * 0.99f);
-    this->sprite.setOrigin((float)rect.width * 0.5f, (float)rect.height * 0.5f);
+    this->setSize(sf::Vector2f((float) rect.width, (float) rect.height) * 0.125f * 0.99f);
+    this->sprite.setOrigin((float) rect.width * 0.5f, (float) rect.height * 0.5f);
     clock.restart();
 }
 
@@ -26,8 +29,8 @@ ItemObject::ItemObject(Item *_item, float x, float y, float velX, float velY)
     this->sprite = this->item->sprite;
     this->sprite.setColor(sf::Color::White);
     sf::Rect<int> rect = this->sprite.getTextureRect();
-    this->setSize(sf::Vector2f((float)rect.width, (float)rect.height) * 0.125f * 0.99f);
-    this->sprite.setOrigin((float)rect.width * 0.5f, (float)rect.height * 0.5f);
+    this->setSize(sf::Vector2f((float) rect.width, (float) rect.height) * 0.125f * 0.99f);
+    this->sprite.setOrigin((float) rect.width * 0.5f, (float) rect.height * 0.5f);
     clock.restart();
 }
 
@@ -47,6 +50,9 @@ void ItemObject::draw() {
     Entity::draw();
     this->sprite.setPosition(this->getPosition());
     this->sprite.setScale(0.25f, 0.25f);
+    this->sprite.setRotation(LerpF(sprite.getRotation(), sprite.getRotation() +
+                                                         std::sqrt(velocity.x * velocity.x + velocity.y * velocity.y) *
+                                                         200.0f, 0.1f));
     sf::RectangleShape shape;
     shape.setPosition(this->getPosition());
     sf::Rect<int> rect = this->sprite.getTextureRect();

@@ -11,6 +11,7 @@
 
 class TileMap : public sf::Drawable, public sf::Transformable {
 public:
+    unsigned int seed;
     std::vector<Tile> tileLookupTable;
     sf::Texture m_tileset;
 
@@ -20,14 +21,23 @@ public:
 
     void setTile(int x, int y, unsigned int tile);
 
-    void setTile(int x, int y, const std::string& tile);
+    void setTileBack(int x, int y, unsigned int tile);
+
+    void setTile(int x, int y, const std::string &tile);
+
+    void setTileBack(int x, int y, const std::string &tile);
 
     unsigned int getTileType(int x, int y);
 
+    unsigned int getTileTypeBack(int x, int y);
+
     unsigned int getTileType(float x, float y);
+
+    unsigned int getTileTypeBack(float x, float y);
 
     void removeChunk(sf::Vector2i);
 
+    bool chunkExists(int x, int y);
 private:
     Tile createTile(std::string &string);
 

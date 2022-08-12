@@ -75,7 +75,7 @@ void Hotbar::draw() {
             float largestSize = textureSize.x > textureSize.y ? textureSize.x : textureSize.y;
             this->items[y]->sprite.setOrigin(textureSize * 0.5f);
             this->items[y]->sprite.setScale((1.0f / largestSize) * sf::Vector2f(0.7f, 0.7f) * scale);
-            if (!selected || selected != y)
+            //if (!selected || selected != y)
                 this->items[y]->sprite.setPosition((0.0f - (float) this->items.size() * 0.5f + 0.5f + y) * scale,
                                                    ((0.05f - 0.50f * scale) + (float) windowSize.y * 0.5f));
             this->items[y]->draw();

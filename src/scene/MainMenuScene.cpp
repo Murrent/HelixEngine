@@ -11,6 +11,7 @@
 #include "../content/items/Banana.hpp"
 #include "../tilemap/MapGenerator.hpp"
 #include "../content/items/TileItem.hpp"
+#include "../common/Random.hpp"
 
 void MainMenuScene::init() {
     //MainMenuScene mainMenuScene;
@@ -44,7 +45,7 @@ void MainMenuScene::init() {
 //    if (!GameManager::map.setTileset("../assets/sprites/Tiles.png"))
 //        return;
 
-    if (!MapGenerator::initialGeneration(GameManager::map, "../assets/sprites/Tiles.png"))
+    if (!MapGenerator::initialGeneration(GameManager::map, "../assets/sprites/Tiles.png", rngRefreshSeed()))
         return;
 
 //    int noiseLevel[256];
