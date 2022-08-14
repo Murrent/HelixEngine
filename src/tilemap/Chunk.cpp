@@ -155,3 +155,7 @@ unsigned int Chunk::getTileType(unsigned int x, unsigned int y) {
 unsigned int Chunk::getTileTypeBack(unsigned int x, unsigned int y) {
     return this->backTiles[x][y];
 }
+
+void Chunk::saveTile(unsigned int x, unsigned int y, unsigned int tile) {
+
+}

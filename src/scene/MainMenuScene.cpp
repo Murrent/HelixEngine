@@ -45,7 +45,7 @@ void MainMenuScene::init() {
 //    if (!GameManager::map.setTileset("../assets/sprites/Tiles.png"))
 //        return;
 
-    if (!MapGenerator::initialGeneration(GameManager::map, "../assets/sprites/Tiles.png", rngRefreshSeed()))
+    if (!MapGenerator::setup(GameManager::map, "../assets/sprites/Tiles.png", rngRefreshSeed(), "World1"))
         return;
 
 //    int noiseLevel[256];
@@ -200,7 +200,7 @@ void MainMenuScene::init() {
 
 
     this->text.setString("hello");
-    this->text.setScale(0.1f, 0.1f);
+    this->text.setScale(0.02f, 0.02f);
     this->text.setCharacterSize(24);
     this->text.setFillColor(sf::Color::Red);
     this->text.setStyle(sf::Text::Bold | sf::Text::Underlined);
@@ -225,8 +225,8 @@ void MainMenuScene::update() {
             sf::View tmp = GameManager::window.getView();
             sf::Vector2f diff = sf::Vector2f(GameManager::window.getSize().x, GameManager::window.getSize().y) /
                                 (float) GameManager::window.getSize().y;
-            tmp.setSize(32.f * diff.x,
-                        32.f * diff.y);
+            tmp.setSize(64.f * diff.x,
+                        64.f * diff.y);
             GameManager::window.setView(tmp);
         } else if (event.type == sf::Event::MouseWheelScrolled) {
             Input::input.scrollUpdate(event);
@@ -284,12 +284,25 @@ void MainMenuScene::update() {
 //    vel.y *= 0.99f;
 //
 //    player.setVelocity(vel);
+    auto chunkPos = sf::Vector2f(GameManager::player.getPosition() / (float) Chunk::size);
+    auto chunkPosi = sf::Vector2i(std::floor(chunkPos.x), std::floor(chunkPos.y));
+
+    for (int i = chunkPosi.x - 1; i < chunkPosi.x + 2; ++i) {
+        for (int j = chunkPosi.y - 3; j < chunkPosi.y + 3; ++j) {
+            if (!GameManager::map.chunkExists(i, j))
+                MapGenerator::generateChunk(GameManager::map, i, j);
+        }
+    }
+
     GameManager::player.updateInputs();
     GameManager::physicsManager.update();
 
     sf::Vector2i mousePos = sf::Mouse::getPosition(GameManager::window);
     sf::Vector2f worldPos = GameManager::window.mapPixelToCoords(mousePos);
-    std::string posString = "Tile: " + GameManager::map.tileLookupTable[GameManager::map.getTileType(worldPos.x, worldPos.y)].name;
+    std::string posString = "x:" + std::to_string(worldPos.x) + " y:" + std::to_string(worldPos.y) + " Tile: " +
+                            GameManager::map.tileLookupTable[GameManager::map.getTileType(worldPos.x,
+                                                                                          worldPos.y)].name +
+                            "/n" + "x:" + std::to_string(chunkPosi.x) + " y:" + std::to_string(chunkPosi.y);
     this->text.setString(posString);
 }
 

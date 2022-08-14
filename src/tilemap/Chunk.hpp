@@ -49,8 +49,9 @@ public:
     unsigned int getTileTypeBack(unsigned int x, unsigned int y);
 
 private:
-
     void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
+
+    void saveTile(unsigned int x, unsigned int y, unsigned int tile);
 
     unsigned int tiles[size][size]{};
     unsigned int backTiles[size][size]{};

@@ -215,4 +215,3 @@ bool TileMap::chunkExists(int x, int y) {
     }
     return false;
 }
-
