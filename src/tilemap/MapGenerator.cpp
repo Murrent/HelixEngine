@@ -110,7 +110,7 @@ bool MapGenerator::generateChunk(TileMap &tileMap, int x, int y) {
     for (int i = offset.x * (int) Chunk::size; i < offset.x * (int) Chunk::size + (int) Chunk::size; ++i) {
         for (int j = -tileMap.terrainAmplitude; j < tileMap.terrainAmplitude + 1; j++) {
             if (tileMap.getTileType(i, j) == 4) {
-                std::cout << "Placed: " << i << " " << j << std::endl;
+                //std::cout << "Placed: " << i << " " << j << std::endl;
                 tileMap.setTile(i, j, 5);
                 break;
             } else if (tileMap.getTileType(i, j) != 0) {

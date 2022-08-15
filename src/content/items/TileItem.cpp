@@ -11,10 +11,10 @@ TileItem::TileItem(Tile &tile) : Item(64) {
     tileType = tile.id;
     sprite.setTexture(GameManager::map.m_tileset);
     sprite.setTextureRect(tile.frames[0]);
-    std::cout << sprite.getTextureRect().left << " "
-              << sprite.getTextureRect().top << " "
-              << sprite.getTextureRect().width << " "
-              << sprite.getTextureRect().height << std::endl;
+//    std::cout << sprite.getTextureRect().left << " "
+//              << sprite.getTextureRect().top << " "
+//              << sprite.getTextureRect().width << " "
+//              << sprite.getTextureRect().height << std::endl;
     name = tile.name;
     description = "A " + tile.name + " tile.";
 }
