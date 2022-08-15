@@ -2,7 +2,7 @@
 #include <iostream>
 #include <dirent.h>
 
-bool Resources::load(const char *directory) {
+bool Resources::load(const std::string &directory) {
     struct dirent *entry;
     std::string dirString = directory + std::string("sprites/items/");
     DIR *dir = opendir(dirString.c_str());

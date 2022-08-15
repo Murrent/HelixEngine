@@ -11,6 +11,6 @@ public:
     std::unordered_map<std::string, sf::Texture> textures;
     std::unordered_map<std::string, sf::Font> fonts;
 
-    bool load(const char *directory);
+    bool load(const std::string & directory);
 };
 

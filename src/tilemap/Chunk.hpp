@@ -51,6 +51,8 @@ public:
 private:
     void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 
+    void writeTileToFile(unsigned int x, unsigned int y, unsigned int tile, const std::string &directory);
+
     void saveTile(unsigned int x, unsigned int y, unsigned int tile);
 
     unsigned int tiles[size][size]{};

@@ -1,6 +1,8 @@
 #include <iostream>
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/Shader.hpp>
+#include <dirent.h>
+#include <fstream>
 #include "Chunk.hpp"
 #include "../scene/GameManager.hpp"
 #include "../common/Random.hpp"
@@ -131,6 +133,8 @@ void Chunk::setTile(unsigned int x, unsigned int y, unsigned int tile) {
     quad[1].texCoords = sf::Vector2f(float(frame.left + frame.width), float(frame.top));
     quad[2].texCoords = sf::Vector2f(float(frame.left + frame.width), float(frame.top + frame.height));
     quad[3].texCoords = sf::Vector2f(float(frame.left), float(frame.top + frame.height));
+
+    saveTile(x, y, tile);
 }
 
 void Chunk::setTileBack(unsigned int x, unsigned int y, unsigned int tile) {
@@ -156,6 +160,110 @@ unsigned int Chunk::getTileTypeBack(unsigned int x, unsigned int y) {
     return this->backTiles[x][y];
 }
 
+sf::Vector3i parseTileInfo(std::string &string) {
+    sf::Vector3i outVec;
+    std::string buffer;
+    unsigned long long firstSep = string.find('_', 0);
+    unsigned long long secondSep = string.find('_', 1);
+    buffer = string.substr(0, firstSep);
+    std::cout << buffer << std::endl;
+    buffer = string.substr(firstSep, secondSep);
+    std::cout << buffer << std::endl;
+    buffer = string.substr(secondSep, string.size());
+    std::cout << buffer << std::endl;
+    return outVec;
+}
+
+void Chunk::writeTileToFile(unsigned int x, unsigned int y, unsigned int tile, const std::string &directory) {
+    // load Tiles.conf and create tiles and add them to the lookup table
+    std::string fullDir = directory + "/" + std::to_string(position.x) + "_" + std::to_string(position.y) + ".txt";
+    std::string newTile = std::to_string(x) + '_' + std::to_string(y) + '_' + std::to_string(tile) + '\n';
+
+    std::fstream fs;
+    fs.open(fullDir, std::ios::in);
+
+    std::string newString;
+    bool foundSame = false;
+
+    if (fs.good()) {
+        std::cout << "Reading file: " << fullDir << std::endl;
+
+        char *bytes = new char[1024];
+        std::string string;
+        while (!fs.eof()) {
+            fs.getline(bytes, 1024);
+            std::cout << "looping line : " << bytes << std::endl;
+            string = std::string(bytes);
+            if (!string.empty()) {
+                sf::Vector3i tileInfo = parseTileInfo(string);
+                if (tileInfo.x == x && tileInfo.y == y && tileInfo.z != tile) {
+                    newString += newTile; // This doesnt seem to work, duplicated saved tile for same coordinate
+                    foundSame = true;
+                    break;
+                }
+            }
+            if (string.find('\n') == -1)
+                newString.append(string + '\n');
+            else
+                newString.append(string);
+            std::cout << "loop adding: " << string << std::endl;
+            std::cout << "loop: " << newString << std::endl;
+        }
+        //newString.pop_back();
+        std::cout << "newString: " << newString.c_str() << std::endl;
+        fs.close();
+    } else {
+        fs.close();
+        std::ofstream createFile{fullDir};
+        createFile.close();
+    }
+
+    if (!foundSame)
+        newString += newTile;
+    newString.pop_back();
+    fs.open(fullDir, std::ios::out);
+    fs << newString;
+
+
+    fs.close();
+}
+
 void Chunk::saveTile(unsigned int x, unsigned int y, unsigned int tile) {
 
+    std::cout << "saving tile" << std::endl;
+    struct dirent *entry;
+    std::string dirString = "../saves/";
+    DIR *dir = opendir(dirString.c_str());
+
+    if (dir == nullptr) {
+        std::cout << "weird dir" << std::endl;
+        return;
+    }
+    std::cout << std::endl;
+    while ((entry = readdir(dir)) != nullptr) {
+        std::string name = entry->d_name;
+        size_t lastIndex = name.find_first_of('.');
+        std::string rawName = name.substr(0, lastIndex);
+        if (rawName.length() != 0) {
+            if (rawName == GameManager::map.worldName) {
+                std::cout << rawName << " was found" << std::endl;
+                writeTileToFile(x, y, tile, dirString + GameManager::map.worldName);
+
+                closedir(dir);
+                return;
+            }
+
+            std::cout << rawName << std::endl;
+        }
+    }
+//    if (mkdir((dirString + GameManager::map.worldName).c_str()) == -1) {
+//        std::cout << "Failed to create directory: " << GameManager::map.worldName << std::endl;
+//
+//        writeTileToFile(x, y, tile, dirString + GameManager::map.worldName);
+//    } else {
+//        std::cout << "Created directory: " << GameManager::map.worldName << std::endl;
+//
+//        writeTileToFile(x, y, tile, dirString + GameManager::map.worldName);
+//    }
+    closedir(dir);
 }
