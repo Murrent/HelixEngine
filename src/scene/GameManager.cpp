@@ -12,7 +12,7 @@ Resources GameManager::resources;
 
 void GameManager::init() {
     GameManager::window.create(sf::VideoMode(1000, 500), "SFML works!");
-    GameManager::window.setFramerateLimit(60);
+    //GameManager::window.setFramerateLimit(60);
     GameManager::resources.load("../assets/");
     GameManager::scene = new MainMenuScene();
 

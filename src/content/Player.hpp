@@ -15,6 +15,7 @@ public:
     bool inventoryOpen{false};
     Hotbar hotbar;
     Item* equippedItem{nullptr};
+    bool leftInput{false}, rightInput{false}, jumpInput{false};
 
     Player() = default;
 
@@ -23,6 +24,8 @@ public:
     void setPosition(const sf::Vector2f &_position) override;
 
     void updateInputs();
+
+    void physicsUpdate() override;
 
     void draw() override;
 };

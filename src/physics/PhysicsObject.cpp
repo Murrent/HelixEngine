@@ -48,3 +48,7 @@ float PhysicsObject::getFriction() const {
 void PhysicsObject::setFriction(float _friction) {
     this->friction = _friction;
 }
+
+void PhysicsObject::physicsUpdate() {
+
+}

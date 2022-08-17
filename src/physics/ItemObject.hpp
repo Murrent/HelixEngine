@@ -23,5 +23,7 @@ public:
 
     void update() override;
 
+    void physicsUpdate() override;
+
     void draw() override;
 };

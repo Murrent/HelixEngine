@@ -40,10 +40,6 @@ void ItemObject::start() {
 
 void ItemObject::update() {
     Entity::update();
-    sf::Vector2f vel = getVelocity();
-    vel.x *= 0.9f;
-    vel.y *= 0.9f;
-    setVelocity(vel);
 }
 
 void ItemObject::draw() {
@@ -60,4 +56,12 @@ void ItemObject::draw() {
     shape.setOrigin(rect.width * 0.125f, rect.height * 0.125f);
     //GameManager::window.draw(shape);
     GameManager::window.draw(this->sprite);
+}
+
+void ItemObject::physicsUpdate() {
+    PhysicsObject::physicsUpdate();
+    sf::Vector2f vel = getVelocity();
+    vel.x *= 0.9f;
+    vel.y *= 0.9f;
+    setVelocity(vel);
 }

@@ -203,7 +203,7 @@ void Chunk::writeTileToFile(unsigned int x, unsigned int y, unsigned int tile, c
             if (!string.empty()) {
                 sf::Vector3i tileInfo = parseTileInfo(string);
                 if (tileInfo.x == x && tileInfo.y == y && tileInfo.z != tile) {
-                    newString += newTile; // works but super laggy
+                    newString += newTile;
                     foundSame = true;
                     continue;
                 }

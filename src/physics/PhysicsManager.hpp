@@ -10,6 +10,10 @@
 
 class PhysicsManager : public Entity {
 private:
+    static constexpr float updateDelay = 1.0f / 60.0f;
+    float timeHandled = 0.0f;
+    sf::Clock tickClock;
+
     static bool
     checkLeftVel(sf::Vector2f topLeft, sf::Vector2f btmRight, sf::Vector2u tileOccupation, sf::Vector2i &tile);
 
@@ -25,6 +29,8 @@ private:
     static bool continousRectCheckX(RectangleObject &obj, sf::Vector2f dest, sf::Vector2u tileOccupation);
 
     static bool continousRectCheckY(RectangleObject &obj, sf::Vector2f dest, sf::Vector2u tileOccupation);
+
+    void updatePhysics();
 
 public:
     std::vector<Player *> players;

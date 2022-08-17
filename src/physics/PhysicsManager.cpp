@@ -227,15 +227,19 @@ void PhysicsManager::start() {
     Entity::start();
 }
 
-void PhysicsManager::update() {
-    for (auto &tmp: players)
+void PhysicsManager::updatePhysics() {
+    for (auto &tmp: players){
+        tmp->physicsUpdate();
         rectTilemap(*tmp);
-    for (auto &tmp: stdRects)
+    }
+    for (auto &tmp: stdRects){
+        tmp->physicsUpdate();
         rectTilemap(*tmp);
+    }
     for (unsigned int i = 0; i < itemRects.size(); i++) {
         auto &tmp = itemRects[i];
         tmp.setVelocity(tmp.getVelocity() + gravity);
-        tmp.update();
+        tmp.physicsUpdate();
         rectTilemap(tmp);
         if (tmp.clock.getElapsedTime().asSeconds() > ItemObject::noPickupTime) {
             for (auto &player: players) {
@@ -251,8 +255,18 @@ void PhysicsManager::update() {
             }
         }
     }
-    for (auto &tmp: circles)
+    for (auto &tmp: circles){
+        tmp->physicsUpdate();
         circleTilemap(*tmp);
+    }
+}
+
+void PhysicsManager::update() {
+    float timeNow = tickClock.getElapsedTime().asSeconds();
+    while (timeNow > timeHandled + updateDelay) {
+        timeHandled += updateDelay;
+        updatePhysics();
+    }
 }
 
 void PhysicsManager::draw() {
@@ -272,5 +286,6 @@ void PhysicsManager::addItem(Item *item, float x, float y) {
 void PhysicsManager::addItem(Item *item, float x, float y, float velX, float velY) {
     this->itemRects.emplace_back(item, x, y, velX, velY);
 }
+
 
 

@@ -38,5 +38,7 @@ public:
     [[nodiscard]] virtual float getFriction() const;
 
     virtual void setFriction(float _friction);
+
+    virtual void physicsUpdate();
 };
 

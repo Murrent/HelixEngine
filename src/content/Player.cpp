@@ -18,23 +18,15 @@ void Player::setPosition(const sf::Vector2f &_position) {
 }
 
 void Player::updateInputs() {
-    sf::Vector2f vel = this->getVelocity();
     if (Input::input.getEvent(LEFT).getActive())
-        vel.x -= 0.04f;
+        leftInput = true;
     if (Input::input.getEvent(RIGHT).getActive())
-        vel.x += 0.04f;
+        rightInput = true;
 
     if (Input::input.getEvent(JUMP).getDown())
-        vel.y -= 0.6f;
-    else
-        vel.y += 0.02f;
+        jumpInput = true;
 
-    vel.x *= 0.8f;
-    vel.y *= 0.99f;
-
-    this->setVelocity(vel);
-
-    if (Input::input.getEvent(INVENTORY).getDown()){
+    if (Input::input.getEvent(INVENTORY).getDown()) {
         inventoryOpen = !inventoryOpen;
         inventory.close();
     }
@@ -67,4 +59,29 @@ void Player::draw() {
 
     if (inventoryOpen) this->inventory.draw();
     else hotbar.draw();
+}
+
+void Player::physicsUpdate() {
+    PhysicsObject::physicsUpdate();
+    sf::Vector2f vel = this->getVelocity();
+    if (leftInput) {
+        vel.x -= 0.04f;
+        leftInput = false;
+    }
+    if (rightInput) {
+        vel.x += 0.04f;
+        rightInput = false;
+    }
+
+    if (jumpInput) {
+        vel.y -= 0.6f;
+        jumpInput = false;
+    } else {
+        vel.y += 0.02f;
+    }
+
+    vel.x *= 0.8f;
+    vel.y *= 0.99f;
+
+    this->setVelocity(vel);
 }
