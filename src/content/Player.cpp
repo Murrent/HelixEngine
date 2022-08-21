@@ -2,19 +2,19 @@
 #include "Player.hpp"
 #include "../system/Input.hpp"
 #include "../scene/GameManager.hpp"
+#include "../common/Animation.hpp"
 
 Player::Player(float x, float y, float width, float height) : RectangleObject(x, y, width, height) {
-    this->shape.setSize(2.0f * sf::Vector2f(width, height));
-    this->shape.setPosition(x, y);
-    this->shape.setOrigin(width, height);
-    this->inventory.setSize(10, 5);
-    this->inventoryOpen = false;
-    this->inventory.start();
+    shape.setSize(2.0f * sf::Vector2f(width, height));
+    shape.setPosition(x, y);
+    shape.setOrigin(width, height);
+    inventory.setSize(10, 5);
+    inventoryOpen = false;
+    inventory.start();
 }
 
 void Player::setPosition(const sf::Vector2f &_position) {
     PhysicsObject::setPosition(_position);
-    this->shape.setPosition(_position);
 }
 
 void Player::updateInputs() {
@@ -55,9 +55,10 @@ void Player::updateInputs() {
 
 void Player::draw() {
     Entity::draw();
-    GameManager::window.draw(this->shape);
+    shape.setPosition(LerpV2(shape.getPosition(), PhysicsObject::getPosition(), 0.5f));
+    GameManager::window.draw(shape);
 
-    if (inventoryOpen) this->inventory.draw();
+    if (inventoryOpen) inventory.draw();
     else hotbar.draw();
 }
 
@@ -83,5 +84,5 @@ void Player::physicsUpdate() {
     vel.x *= 0.8f;
     vel.y *= 0.99f;
 
-    this->setVelocity(vel);
+    setVelocity(vel);
 }
