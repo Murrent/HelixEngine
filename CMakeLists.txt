@@ -63,7 +63,11 @@ add_executable(GameScene ${src}/scene/main.cpp
         ${src}/tilemap/MapGenerator.cpp
         ${src}/tilemap/MapGenerator.hpp
         ${src}/content/items/TileItem.cpp
-        ${src}/content/items/TileItem.hpp)
+        ${src}/content/items/TileItem.hpp
+        ${src}/system/ClockSystem.cpp
+        ${src}/system/ClockSystem.hpp
+        ${src}/system/UserInterface.cpp
+        ${src}/system/UserInterface.hpp)
 
 add_executable(verletTest
         ${src}/verletTest.cpp

@@ -3,12 +3,14 @@
 #include "GameManager.hpp"
 #include "GameScene.hpp"
 
-Scene* GameManager::scene = nullptr;
+Scene *GameManager::scene = nullptr;
 sf::RenderWindow GameManager::window;
 TileMap GameManager::map;
 PhysicsManager GameManager::physicsManager;
 Player GameManager::player;
 Resources GameManager::resources;
+ClockSystem GameManager::clock;
+UserInterface GameManager::ui;
 
 void GameManager::init() {
     GameManager::window.create(sf::VideoMode(1000, 500), "SFML works!");

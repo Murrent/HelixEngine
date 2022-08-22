@@ -15,150 +15,8 @@
 #include "../common/Animation.hpp"
 
 void GameScene::init() {
-    //GameScene mainMenuScene;
-    //Scene *abc = &mainMenuScene;
-
-    // create the window
-    //sf::RenderWindow window(sf::VideoMode(512, 256), "Tilemap");
-
-    // define the level with an array of tile indices
-//    const int level[] =
-//            {
-//                    0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-//                    0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 2, 0, 0, 0, 0,
-//                    1, 1, 0, 0, 0, 0, 0, 0, 3, 3, 3, 3, 3, 3, 3, 3,
-//                    0, 1, 0, 0, 2, 0, 3, 3, 3, 0, 1, 1, 1, 0, 0, 0,
-//                    0, 1, 1, 0, 3, 3, 3, 0, 0, 0, 1, 1, 1, 2, 0, 0,
-//                    0, 0, 1, 0, 3, 0, 2, 2, 0, 0, 1, 1, 1, 1, 2, 0,
-//                    2, 0, 1, 0, 3, 0, 2, 2, 2, 0, 1, 1, 1, 1, 1, 1,
-//                    0, 0, 1, 0, 3, 2, 2, 2, 0, 0, 0, 0, 1, 1, 1, 1,
-//            };
-//    int level[256];
-//    for (int &i : level) {
-//        i = 3;
-//    }
-//    int levelNthn[256];
-//    for (int &i : levelNthn) {
-//        i = 0;
-//    }
-//    rngRefreshSeed();
-//    // create the tilemap from the level definition
-//    if (!GameManager::map.setTileset("../assets/sprites/Tiles.png"))
-//        return;
-
     if (!MapGenerator::setup(GameManager::map, "../assets/sprites/Tiles.png", rngRefreshSeed(), "World1"))
         return;
-
-//    int noiseLevel[256];
-//    sf::Vector2i offset(0,-1);
-//    sf::Vector2f scale(0.1f,0.1f);
-//    sf::Vector2f seedOffset(0,0);
-//    for (int i = 0; i < 16; i++) {
-//        for (int j = 0; j < 16; j++) {
-//            noiseLevel[i + j * 16] = int((SimplexNoise::noise((float)(i * offset.x + seedOffset.x) * scale.x, (float)(j * offset.y + seedOffset.y) * scale.y) + 1.0f) * 0.5f * 4.0f);
-//        }
-//    }
-//
-//    if (!GameManager::map.addChunk(sf::Vector2u(4, 4), noiseLevel, 0, -1))
-//        return;
-//
-//    offset.x = 0;
-//    offset.y = 0;
-//    for (int i = 0; i < 16; i++) {
-//        for (int j = 0; j < 16; j++) {
-//            noiseLevel[i + j * 16] = int((SimplexNoise::noise((float)(i * offset.x + seedOffset.x) * scale.x, (float)(j * offset.y + seedOffset.y) * scale.y) + 1.0f) * 0.5f * 4.0f);
-//        }
-//    }
-//
-//    if (!GameManager::map.addChunk(sf::Vector2u(4, 4), noiseLevel, 0, 0))
-//        return;
-//
-//    offset.x = 0;
-//    offset.y = 1;
-//    for (int i = 0; i < 16; i++) {
-//        for (int j = 0; j < 16; j++) {
-//            noiseLevel[i + j * 16] = int((SimplexNoise::noise((float)(i * offset.x + seedOffset.x) * scale.x, (float)(j * offset.y + seedOffset.y) * scale.y) + 1.0f) * 0.5f * 4.0f);
-//        }
-//    }
-//
-//    if (!GameManager::map.addChunk(sf::Vector2u(4, 4), noiseLevel, 0, 1))
-//        return;
-//
-//    offset.x = -1;
-//    offset.y = 0;
-//    for (int i = 0; i < 16; i++) {
-//        for (int j = 0; j < 16; j++) {
-//            noiseLevel[i + j * 16] = int((SimplexNoise::noise((float)(i * offset.x + seedOffset.x) * scale.x, (float)(j * offset.y + seedOffset.y) * scale.y) + 1.0f) * 0.5f * 4.0f);
-//        }
-//    }
-//
-//    if (!GameManager::map.addChunk(sf::Vector2u(4, 4), noiseLevel, -1, 0))
-//        return;
-//
-//    offset.x = -1;
-//    offset.y = -1;
-//    for (int i = 0; i < 16; i++) {
-//        for (int j = 0; j < 16; j++) {
-//            noiseLevel[i + j * 16] = int((SimplexNoise::noise((float)(i * offset.x + seedOffset.x) * scale.x, (float)(j * offset.y + seedOffset.y) * scale.y) + 1.0f) * 0.5f * 4.0f);
-//        }
-//    }
-//
-//    if (!GameManager::map.addChunk(sf::Vector2u(4, 4), noiseLevel, -1, -1))
-//        return;
-//
-//    offset.x = 1;
-//    offset.y = -1;
-//    for (int i = 0; i < 16; i++) {
-//        for (int j = 0; j < 16; j++) {
-//            noiseLevel[i + j * 16] = int((SimplexNoise::noise((float)(i * offset.x + seedOffset.x) * scale.x, (float)(j * offset.y + seedOffset.y) * scale.y) + 1.0f) * 0.5f * 4.0f);
-//        }
-//    }
-//
-//    if (!GameManager::map.addChunk(sf::Vector2u(4, 4), noiseLevel, 1, -1))
-//        return;
-//
-//    offset.x = 0;
-//    offset.y = -2;
-//    for (int i = 0; i < 16; i++) {
-//        for (int j = 0; j < 16; j++) {
-//            noiseLevel[i + j * 16] = int((SimplexNoise::noise((float)(i * offset.x + seedOffset.x) * scale.x, (float)(j * offset.y + seedOffset.y) * scale.y) + 1.0f) * 0.5f * 4.0f);
-//        }
-//    }
-//
-//    if (!GameManager::map.addChunk(sf::Vector2u(4, 4), noiseLevel, 0, -2))
-//        return;
-//    GameManager::map.setTile(10, -1, 3);
-//
-//
-//    GameManager::map.setTile(0, -1, "Stone");
-//    GameManager::map.setTile(0, -2, "Iron ore");
-//    GameManager::map.setTile(0, -3, "Gold ore");
-//    GameManager::map.setTile(0, -4, "Dirt");
-//    GameManager::map.setTile(0, -5, "Grass");
-//
-//    GameManager::map.setTile(4, 0, 0);
-//    GameManager::map.setTile(5, 0, 0);
-//    GameManager::map.setTile(6, 0, 0);
-//    GameManager::map.setTile(4, 1, 0);
-//    GameManager::map.setTile(5, 1, 0);
-//    GameManager::map.setTile(4, 2, 0);
-//    GameManager::map.setTile(5, 2, 0);
-//    GameManager::map.setTile(4, 3, 0);
-//    GameManager::map.setTile(5, 3, 0);
-//    GameManager::map.setTile(6, 3, 0);
-//    GameManager::map.setTile(4, 4, 0);
-//    GameManager::map.setTile(5, 4, 0);
-//    GameManager::map.setTile(6, 4, 0);
-//    GameManager::map.setTile(4, 5, 0);
-//    GameManager::map.setTile(5, 5, 0);
-//    GameManager::map.setTile(6, 5, 0);
-//    GameManager::map.setTile(4, 6, 0);
-//    GameManager::map.setTile(5, 6, 0);
-//    GameManager::map.setTile(6, 6, 0);
-//    GameManager::map.setTile(1, 1, 1);
-//    GameManager::map.setTile(0, 3, 1);
-//    GameManager::map.setTile(15, 0, 2);
-//    //map.removeChunk(sf::Vector2i(-3, 0));
 
     this->view = sf::View(sf::Vector2f(0, 0), sf::Vector2f(64, 32));
     GameManager::window.setView(this->view);
@@ -166,7 +24,7 @@ void GameScene::init() {
     GameManager::player.setVelocity(sf::Vector2f(0.0f, 0.0f));
     GameManager::player.shape.setFillColor(sf::Color(255, 255, 255, 100));
     GameManager::physicsManager.players.push_back(&GameManager::player);
-
+    GameManager::clock.update();
 
     {
         auto *stick = new SwordIron();
@@ -195,6 +53,7 @@ void GameScene::init() {
     }
     {
         auto *stick = new TileItem(GameManager::map.tileLookupTable[1]);
+        stick->amount = 64;
         if (!GameManager::player.inventory.addItem(stick))
             delete stick;
     }
@@ -210,6 +69,7 @@ void GameScene::init() {
 }
 
 void GameScene::update() {
+    GameManager::clock.update();
     Input::input.scrollReset();
     sf::Event event{};
     while (GameManager::window.pollEvent(event)) {
@@ -240,7 +100,7 @@ void GameScene::update() {
     //std::cout << (Input::input.getEvent(UP).getActive()) << std::endl;
 
     sf::View tmp = GameManager::window.getView();
-    sf::Vector2f plPos = LerpV2(tmp.getCenter(), GameManager::player.shape.getPosition(), 0.01f);
+    sf::Vector2f plPos = LerpV2(tmp.getCenter(), GameManager::player.shape.getPosition(), 10.0f * GameManager::clock.delta());
     //plPos = sf::Vector2f (std::floor(plPos.x), std::floor(plPos.y));
     //sf::Vector2f correction = sf::Vector2f(float(int(tmp.getSize().x) % 2 == 0 ? 0 : 1) * 0.5f,
     //                                       float(int(tmp.getSize().y) % 2 == 0 ? 0 : 1) * 0.5f);
@@ -249,42 +109,6 @@ void GameScene::update() {
     tmp.setCenter(plPos);
     //tmp.setSize(std::floor(tmp.getSize().x), std::floor(tmp.getSize().y));
     GameManager::window.setView(tmp);
-//    if (Input::input.getEvent(NEXT).getActive()) {
-//        sf::View tmp = GameManager::window.getView();
-//        tmp.setCenter(tmp.getCenter().x, tmp.getCenter().y + 1.f);
-//        GameManager::window.setView(tmp);
-//    }
-//    if (Input::input.getEvent(PREVIOUS).getActive()) {
-//        sf::View tmp = GameManager::window.getView();
-//        tmp.setCenter(tmp.getCenter().x, tmp.getCenter().y - 1.f);
-//        GameManager::window.setView(tmp);
-//    }
-//    if (Input::input.getEvent(TRIGGER).getUp()) {
-//        sf::View tmp = GameManager::window.getView();
-//        tmp.setCenter(tmp.getCenter().x + 1.f, tmp.getCenter().y);
-//        GameManager::window.setView(tmp);
-//    }
-//    if (Input::input.getEvent(TRIGGER2).getUp()) {
-//        sf::View tmp = GameManager::window.getView();
-//        tmp.setCenter(tmp.getCenter().x - 1.f, tmp.getCenter().y);
-//        GameManager::window.setView(tmp);
-//    }
-
-//    sf::Vector2f vel = player.getVelocity();
-//    if (Input::input.getEvent(LEFT).getActive())
-//        vel.x -= 0.04f;
-//    if (Input::input.getEvent(RIGHT).getActive())
-//        vel.x += 0.04f;
-//
-//    if (Input::input.getEvent(JUMP).getDown())
-//        vel.y -= 0.6f;
-//    else
-//        vel.y += 0.02f;
-//
-//    vel.x *= 0.8f;
-//    vel.y *= 0.99f;
-//
-//    player.setVelocity(vel);
     auto chunkPos = sf::Vector2f(GameManager::player.getPosition() / (float) Chunk::size);
     auto chunkPosi = sf::Vector2i(std::floor(chunkPos.x), std::floor(chunkPos.y));
 
