@@ -14,6 +14,8 @@ private:
     float timeHandled = 0.0f;
     sf::Clock tickClock;
 
+    static bool checkArea(sf::Vector2f topLeft, sf::Vector2f btmRight, sf::Vector2u tileOccupation, sf::Vector2i &tile);
+
     static bool
     checkLeftVel(sf::Vector2f topLeft, sf::Vector2f btmRight, sf::Vector2u tileOccupation, sf::Vector2i &tile);
 
@@ -30,6 +32,8 @@ private:
 
     static bool continousRectCheckY(RectangleObject &obj, sf::Vector2f dest, sf::Vector2u tileOccupation);
 
+    static bool continousRectCheckXPlayer(RectangleObject &obj, sf::Vector2f dest, sf::Vector2u tileOccupation);
+
     void updatePhysics();
 
 public:
@@ -43,6 +47,8 @@ public:
     //Dynamic rectangle to static rectangle response solver
     static void rectTilemap(RectangleObject &obj);
 
+    //Dynamic rectangle to static rectangle response solver with extra functionality
+    static void playerTilemap(RectangleObject &obj);
 
     //Dynamic circle to static rectangle response solver
     void circleTilemap(CircleObject &obj);

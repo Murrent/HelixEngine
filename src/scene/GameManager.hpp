@@ -19,6 +19,7 @@ public:
     static PhysicsManager physicsManager;
     static Player player;
     static Resources resources;
+    // We want a clock standard, UI standard so u can send "item picked up", chatbox can be a part of UI standard...
     static void stop();
     static void run();
 };

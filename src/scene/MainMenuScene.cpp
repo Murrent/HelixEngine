@@ -12,6 +12,7 @@
 #include "../tilemap/MapGenerator.hpp"
 #include "../content/items/TileItem.hpp"
 #include "../common/Random.hpp"
+#include "../common/Animation.hpp"
 
 void MainMenuScene::init() {
     //MainMenuScene mainMenuScene;
@@ -239,7 +240,7 @@ void MainMenuScene::update() {
     //std::cout << (Input::input.getEvent(UP).getActive()) << std::endl;
 
     sf::View tmp = GameManager::window.getView();
-    sf::Vector2f plPos = GameManager::player.shape.getPosition();
+    sf::Vector2f plPos = LerpV2(tmp.getCenter(), GameManager::player.shape.getPosition(), 0.01f);
     //plPos = sf::Vector2f (std::floor(plPos.x), std::floor(plPos.y));
     //sf::Vector2f correction = sf::Vector2f(float(int(tmp.getSize().x) % 2 == 0 ? 0 : 1) * 0.5f,
     //                                       float(int(tmp.getSize().y) % 2 == 0 ? 0 : 1) * 0.5f);
