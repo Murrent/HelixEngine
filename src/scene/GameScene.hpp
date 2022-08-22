@@ -5,7 +5,7 @@
 #include "../physics/PhysicsManager.hpp"
 #include "../content/Player.hpp"
 
-class MainMenuScene : public Scene {
+class GameScene : public Scene {
 public:
     sf::View view;
     sf::Text text;

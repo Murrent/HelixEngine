@@ -1,7 +1,7 @@
 
 #include <iostream>
 #include "GameManager.hpp"
-#include "MainMenuScene.hpp"
+#include "GameScene.hpp"
 
 Scene* GameManager::scene = nullptr;
 sf::RenderWindow GameManager::window;
@@ -14,7 +14,7 @@ void GameManager::init() {
     GameManager::window.create(sf::VideoMode(1000, 500), "SFML works!");
     //GameManager::window.setFramerateLimit(60);
     GameManager::resources.load("../assets/");
-    GameManager::scene = new MainMenuScene();
+    GameManager::scene = new GameScene();
 
     GameManager::scene->init();
 }

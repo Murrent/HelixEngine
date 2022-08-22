@@ -1,6 +1,6 @@
 #include <SFML/Window/Event.hpp>
 #include <iostream>
-#include "MainMenuScene.hpp"
+#include "GameScene.hpp"
 #include "GameManager.hpp"
 #include "../system/Input.hpp"
 #include "../content/items/Stick.hpp"
@@ -14,8 +14,8 @@
 #include "../common/Random.hpp"
 #include "../common/Animation.hpp"
 
-void MainMenuScene::init() {
-    //MainMenuScene mainMenuScene;
+void GameScene::init() {
+    //GameScene mainMenuScene;
     //Scene *abc = &mainMenuScene;
 
     // create the window
@@ -209,7 +209,7 @@ void MainMenuScene::init() {
     this->text.setFont(GameManager::resources.fonts["tahoma"]);
 }
 
-void MainMenuScene::update() {
+void GameScene::update() {
     Input::input.scrollReset();
     sf::Event event{};
     while (GameManager::window.pollEvent(event)) {
@@ -307,7 +307,7 @@ void MainMenuScene::update() {
     this->text.setString(posString);
 }
 
-void MainMenuScene::draw() {
+void GameScene::draw() {
     GameManager::window.clear();
     GameManager::window.draw(GameManager::map);
     GameManager::physicsManager.draw();
@@ -317,7 +317,7 @@ void MainMenuScene::draw() {
     GameManager::window.display();
 }
 
-void MainMenuScene::end() {
+void GameScene::end() {
     GameManager::player.inventory.clear();
     Scene::end();
 }

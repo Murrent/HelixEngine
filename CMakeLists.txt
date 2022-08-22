@@ -5,13 +5,13 @@ set(CMAKE_CXX_STANDARD 17)
 set(dir ${CMAKE_CURRENT_SOURCE_DIR})
 set(src ${dir}/src)
 
-add_executable(MainMenu ${src}/scene/main.cpp
+add_executable(GameScene ${src}/scene/main.cpp
         ${src}/scene/GameManager.hpp
         ${src}/scene/GameManager.cpp
         ${src}/scene/Scene.hpp
         ${src}/scene/Scene.cpp
-        ${src}/scene/MainMenuScene.hpp
-        ${src}/scene/MainMenuScene.cpp
+        ${src}/scene/GameScene.hpp
+        ${src}/scene/GameScene.cpp
         ${src}/tilemap/TileMap.hpp
         ${src}/tilemap/TileMap.cpp
         ${src}/tilemap/Chunk.hpp
@@ -30,16 +30,12 @@ add_executable(MainMenu ${src}/scene/main.cpp
         ${src}/physics/CircleObject.hpp
         ${src}/system/Entity.cpp
         ${src}/system/Entity.hpp
-        ${src}/system/Engine.cpp
-        ${src}/system/Engine.hpp
         ${src}/noise/SimplexNoise.cpp
         ${src}/noise/SimplexNoise.hpp
         ${src}/content/Inventory.cpp
         ${src}/content/Inventory.hpp
         ${src}/content/items/Item.cpp
         ${src}/content/items/Item.hpp
-        ${src}/system/ItemManager.cpp
-        ${src}/system/ItemManager.hpp
         ${src}/physics/ItemObject.cpp
         ${src}/physics/ItemObject.hpp
         ${src}/scene/Resources.cpp
@@ -62,26 +58,12 @@ add_executable(MainMenu ${src}/scene/main.cpp
         ${src}/common/Camera.hpp
         ${src}/common/Animation.cpp
         ${src}/common/Animation.hpp
-        ${src}/system/ECS.cpp
-        ${src}/system/ECS.hpp src/common/Random.cpp src/common/Random.hpp src/tilemap/MapGenerator.cpp src/tilemap/MapGenerator.hpp src/content/items/TileItem.cpp src/content/items/TileItem.hpp)
-
-add_executable(Game ${src}/game.cpp
-        ${src}/system/Entity.cpp
-        ${src}/system/Entity.hpp
-        ${src}/system/Engine.cpp
-        ${src}/system/Engine.hpp
-        ${src}/noise/SimplexNoise.cpp
-        ${src}/noise/SimplexNoise.hpp)
-
-add_executable(Physics ${src}/physics.cpp
-        src/oldEngineCode/oldPhysicsManager/PhysicsManager.cpp
-        src/oldEngineCode/oldPhysicsManager/PhysicsManager.hpp
-        src/physics/PhysicsObject.cpp
-        src/physics/PhysicsObject.hpp
-        src/physics/VectorMath.cpp
-        src/physics/VectorMath.hpp)
-
-add_executable(test ${src}/test.cpp)
+        ${src}/common/Random.cpp
+        ${src}/common/Random.hpp
+        ${src}/tilemap/MapGenerator.cpp
+        ${src}/tilemap/MapGenerator.hpp
+        ${src}/content/items/TileItem.cpp
+        ${src}/content/items/TileItem.hpp)
 
 add_executable(verletTest
         ${src}/verletTest.cpp
@@ -100,10 +82,7 @@ set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake_modules")
 find_package(SFML REQUIRED system window graphics network audio)
 if (SFML_FOUND)
     include_directories(${SFML_INCLUDE_DIR})
-    target_link_libraries(Game ${SFML_LIBRARIES})
-    target_link_libraries(Physics ${SFML_LIBRARIES})
-    target_link_libraries(test ${SFML_LIBRARIES})
-    target_link_libraries(MainMenu ${SFML_LIBRARIES})
+    target_link_libraries(GameScene ${SFML_LIBRARIES})
     target_link_libraries(verletTest ${SFML_LIBRARIES})
 endif ()
 
