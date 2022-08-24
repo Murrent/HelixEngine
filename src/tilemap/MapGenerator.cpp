@@ -3,7 +3,8 @@
 #include "../noise/SimplexNoise.hpp"
 #include "../common/Random.hpp"
 
-bool MapGenerator::setup(TileMap &tileMap, const std::string &tileset, unsigned int seed, const std::string &worldName) {
+bool
+MapGenerator::setup(TileMap &tileMap, const std::string &tileset, unsigned int seed, const std::string &worldName) {
     if (!tileMap.setTileset(tileset))
         return false;
 
@@ -30,7 +31,7 @@ bool MapGenerator::setup(TileMap &tileMap, const std::string &tileset, unsigned 
 
 bool MapGenerator::generateChunk(TileMap &tileMap, int x, int y) {
     //rngSetSeed(tileMap.seed);
-    if (y == 0)
+    if (y == 0 && !tileMap.chunkExists(x, y - 1))
         generateChunk(tileMap, x, y - 1);
 
     int noiseLevel[Chunk::size * Chunk::size * 2];

@@ -1,7 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
-#include "physics/Solver.hpp"
-#include "physics/Link.hpp"
+#include "Solver.hpp"
+#include "Link.hpp"
 #include <cstdlib>
 
 

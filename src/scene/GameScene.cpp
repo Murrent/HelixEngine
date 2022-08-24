@@ -60,12 +60,17 @@ void GameScene::init() {
 
 
     this->text.setString("hello");
-    this->text.setScale(0.02f, 0.02f);
+    this->text.setScale(0.05f, 0.05f);
+    this->text.setOutlineThickness(2.0f);
     this->text.setCharacterSize(24);
     this->text.setFillColor(sf::Color::Red);
-    this->text.setStyle(sf::Text::Bold | sf::Text::Underlined);
+    this->text.setStyle(sf::Text::Regular);
 
     this->text.setFont(GameManager::resources.fonts["tahoma"]);
+
+    GameManager::ui.canvases.emplace_back(UI::Canvas());
+    GameManager::ui.canvases[0].panels.emplace_back(UI::Panel());
+    GameManager::ui.start();
 }
 
 void GameScene::update() {
@@ -100,7 +105,8 @@ void GameScene::update() {
     //std::cout << (Input::input.getEvent(UP).getActive()) << std::endl;
 
     sf::View tmp = GameManager::window.getView();
-    sf::Vector2f plPos = LerpV2(tmp.getCenter(), GameManager::player.shape.getPosition(), 10.0f * GameManager::clock.delta());
+    sf::Vector2f plPos = LerpV2(tmp.getCenter(), GameManager::player.shape.getPosition(),
+                                10.0f * GameManager::clock.delta());
     //plPos = sf::Vector2f (std::floor(plPos.x), std::floor(plPos.y));
     //sf::Vector2f correction = sf::Vector2f(float(int(tmp.getSize().x) % 2 == 0 ? 0 : 1) * 0.5f,
     //                                       float(int(tmp.getSize().y) % 2 == 0 ? 0 : 1) * 0.5f);
@@ -129,6 +135,7 @@ void GameScene::update() {
                                                                                           worldPos.y)].name +
                             "/n" + "x:" + std::to_string(chunkPosi.x) + " y:" + std::to_string(chunkPosi.y);
     this->text.setString(posString);
+    GameManager::ui.update();
 }
 
 void GameScene::draw() {
@@ -138,6 +145,8 @@ void GameScene::draw() {
     GameManager::player.draw();
     text.setPosition(GameManager::player.getPosition() - sf::Vector2f(2.0f, 10.0f));
     GameManager::window.draw(text);
+
+    GameManager::ui.draw();
     GameManager::window.display();
 }
 

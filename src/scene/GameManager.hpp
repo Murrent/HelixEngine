@@ -27,7 +27,7 @@ public:
     static Resources resources;
     // We want a clock standard, UI standard so u can send "item picked up", chatbox can be a part of UI standard...
     static ClockSystem clock;
-    static UserInterface ui;
+    static UI::UserInterface ui;
 
     static void stop();
 

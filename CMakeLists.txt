@@ -70,13 +70,15 @@ add_executable(GameScene ${src}/scene/main.cpp
         ${src}/system/UserInterface.hpp)
 
 add_executable(verletTest
-        ${src}/verletTest.cpp
-        src/physics/VerletObject.cpp
-        src/physics/VerletObject.hpp
-        src/physics/Solver.cpp
-        src/physics/Solver.hpp
-        src/physics/VectorMath.hpp
-        src/physics/VectorMath.cpp src/physics/Link.cpp src/physics/Link.hpp)
+        ${src}/verlet/verletTest.cpp
+        ${src}/verlet/VerletObject.cpp
+        ${src}/verlet/VerletObject.hpp
+        ${src}/verlet/Solver.cpp
+        ${src}/verlet/Solver.hpp
+        ${src}/verlet/VectorMath.hpp
+        ${src}/verlet/VectorMath.cpp
+        ${src}/verlet/Link.cpp
+        ${src}/verlet/Link.hpp)
 
 
 include_directories(headers /usr/include c:/SFML/include)

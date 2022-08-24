@@ -10,7 +10,7 @@ PhysicsManager GameManager::physicsManager;
 Player GameManager::player;
 Resources GameManager::resources;
 ClockSystem GameManager::clock;
-UserInterface GameManager::ui;
+UI::UserInterface GameManager::ui;
 
 void GameManager::init() {
     GameManager::window.create(sf::VideoMode(1000, 500), "SFML works!");
